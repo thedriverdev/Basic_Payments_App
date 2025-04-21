@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    .sign-in-container {
+      text-align: center;
+    }
+  </style>
+  <title>Basic SignUp-SignIn-SignOut</title>
+</head>
+<body>
+  <div class="sign-in-container">
+    <p>Sign In</p>
+    <input class="name-input" type="text" placeholder="Enter name"><br>
+    <input class="password-input" type="password" placeholder="Enter password"><br>
+    <button class="sign-in-button">Sign in</button>
+    <p class="sign-in-feedback"></p>
+    <p class="user-account-info"></p>
+
+    <p>Don't have an account? <a href="sign-up.html">Sign Up</a></p>
+  </div>
+
+  <script>
+    const nameInput = document.querySelector(".name-input");
+    const passwordInput = document.querySelector(".password-input");
+    const signInButton = document.querySelector(".sign-in-button");
+    const signInFeedback = document.querySelector(".sign-in-feedback");
+    const userAccountInfo = document.querySelector(".user-account-info");
+
+    function signIn() {
+
+      let availableAccounts = JSON.parse(localStorage.getItem("availableAccounts")) || [];
+
+      let matchedUser = availableAccounts.find((userDetails) => { return nameInput.value === userDetails.userName && passwordInput.value === userDetails.userPassword});
+
+      if (matchedUser) {
+        
+        signInFeedback.textContent = `Sign in successful! Welcome, ${matchedUser.userName}!`;
+        localStorage.setItem("loggedInUser", matchedUser.userName);
+
+        nameInput.style.display = "none";
+        passwordInput.style.display = "none";
+        signInButton.style.display = "none";
+
+        userAccountInfo.innerHTML = `<img src="default.jpeg" alt="Profile photo of ${matchedUser.userName}" /><br><a href="" onclick="signOut();">Sign out</a>`;
+
+      } else {
+        signInFeedback.textContent = "Account does not exist!";
+      }
+
+    }signInButton.onclick = signIn;
+
+    function signOut() {
+      localStorage.removeItem("loggedInUser");
+      signInFeedback.textContent = "Sign out successful!";
+    }
+  </script>
+  
+</body>
+</html>
