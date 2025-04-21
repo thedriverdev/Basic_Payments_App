@@ -12,7 +12,7 @@
 </head>
 <body>
   <div class="sign-in-container">
-    <p>Sign In</p>
+    <p id="sign-in-header"></p>
     <input class="name-input" type="text" placeholder="Enter name"><br>
     <input class="password-input" type="password" placeholder="Enter password"><br>
     <button class="sign-in-button">Sign in</button>
@@ -23,11 +23,14 @@
   </div>
 
   <script>
+    const signInHeader = document.getElementById("sign-in-header");
     const nameInput = document.querySelector(".name-input");
     const passwordInput = document.querySelector(".password-input");
     const signInButton = document.querySelector(".sign-in-button");
     const signInFeedback = document.querySelector(".sign-in-feedback");
     const userAccountInfo = document.querySelector(".user-account-info");
+
+    signInHeader.textContent = "Sign In";
 
     function signIn() {
 
@@ -36,6 +39,8 @@
       let matchedUser = availableAccounts.find((userDetails) => { return nameInput.value === userDetails.userName && passwordInput.value === userDetails.userPassword});
 
       if (matchedUser) {
+
+        signInHeader.style.display = "none";
         
         signInFeedback.textContent = `Sign in successful! Welcome, ${matchedUser.userName}!`;
         localStorage.setItem("loggedInUser", matchedUser.userName);
