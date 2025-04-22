@@ -3,17 +3,18 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
   <style>
     .sign-up-container {
       text-align: center;
     }
   </style>
-  <title>Sign Up</title>
+  <title>Moola.com | Sign up</title>
 </head>
 <body>
 
   <div class="sign-up-container">
-    <p id="sign-up-header">Sign Up</p>
+    <p id="sign-up-header">Sign up for a Moola account</p>
     <input class="name-input" type="text" placeholder="Enter name"><br>
     <input class="password-input" type="password" placeholder="Enter password"><br>
     <input class="confirm-password-input" type="password" placeholder="Confirm password"><br>
@@ -22,47 +23,11 @@
     <p class="num-of-accounts"></p>
 
     <p>Have an account? <a href="sign-in.html">Sign In</a></p>
+
+    <p>Click <a href="account-list.html">here</a> to see all available accounts</p>
   </div>
 
-  <script>
-    const nameInput = document.querySelector(".name-input");
-    const passwordInput = document.querySelector(".password-input");
-    const confirmPasswordInput = document.querySelector(".confirm-password-input");
-    const signUpButton = document.querySelector(".sign-up-button");
-    const signUpFeedback = document.querySelector(".sign-up-feedback");
-    const numOfAccountsDisplay = document.querySelector(".num-of-accounts");
-
-    let availableAccounts = JSON.parse(localStorage.getItem("availableAccounts"))||[];
-
-    function signUp() {
-
-      const userDetails = {
-        userName: nameInput.value,
-        userPassword: passwordInput.value
-      };
-
-      if (userDetails.userName.trim() !== null && userDetails.userPassword !== null && confirmPasswordInput.value === userDetails.userPassword) {
-
-        if (availableAccounts.find((availableAccount)=>{return availableAccount.userName === userDetails.userName})) {
-          signUpFeedback.textContent = "Username already taken!";
-        } else {
-          availableAccounts.push(userDetails);
-        localStorage.setItem("availableAccounts", JSON.stringify(availableAccounts));
-        localStorage.setItem("numOfAccounts", availableAccounts.length);
-        let numOfAccounts = localStorage.getItem("numOfAccounts");
-        numOfAccountsDisplay.textContent = `Number of available accounts: ${numOfAccounts}`;
-
-        signUpFeedback.textContent = `Sign up successful, ${userDetails.userName}`;
-        }
-
-        
-      } else {
-        signUpFeedback.textContent = "Make sure you have entered a name, and your passwords match.";
-      }
-
-    } signUpButton.onclick = signUp;
-
-  </script>
+  <script src="script.js"></script>
   
 </body>
 </html>

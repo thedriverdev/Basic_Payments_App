@@ -1,0 +1,47 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Number Of Moola Accounts</title>
+</head>
+<body>
+  <p class="account-count-display"></p>
+
+  <table class="account-list-table" border="1">
+    <thead>
+      <tr>
+        <th>Serial Number</th>
+        <th>Account Name</th>
+        <th>Account Number</th>
+        <th>Account Balance (₦)</th>
+      </tr>
+    </thead>
+  </table>
+
+  <script>
+    const accountCountDisplay = document.querySelector(".account-count-display");
+    const accountListTable = document.querySelector(".account-list-table");
+
+    let availableAccounts = JSON.parse(localStorage.getItem("availableAccounts"));
+
+    if (Array.isArray(availableAccounts) && availableAccounts.length > 0) {
+      availableAccounts.forEach((availableAccount, index) => {
+        let row = document.createElement("tr");
+        row.innerHTML = `<td>${index+1}</td>
+        <td>${availableAccount.userName}</td>
+        <td>${availableAccount.userAccount}</td>
+        <td>${availableAccount.userBalance}</td>`;
+
+        accountListTable.appendChild(row);
+      })
+    }
+
+    let numOfAccounts = localStorage.getItem("numOfAccounts");
+    accountCountDisplay.innerHTML = numOfAccounts;
+  </script>
+  
+</body>
+</html>
