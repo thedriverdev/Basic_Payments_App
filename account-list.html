@@ -44,15 +44,13 @@
       })
     }
 
-    let numOfAccounts = localStorage.getItem("numOfAccounts") || 0;
-
-    if (numOfAccounts === 0) {
-      accountCountDisplay.innerHTML = `There are no available accounts`;
+    if (availableAccounts.length === 0) {
+      accountCountDisplay.innerHTML = `There are no available accounts.`;
       deleteButton.disabled = true;
-    } else if (numOfAccounts === 1) {
-      accountCountDisplay.innerHTML = `There's just ${numOfAccounts} available account`;
+    } else if (availableAccounts.length === 1) {
+      accountCountDisplay.innerHTML = `There's just ${availableAccounts.length} available account.`;
     } else {
-      accountCountDisplay.innerHTML = `There are ${numOfAccounts} available accounts`;
+      accountCountDisplay.innerHTML = `There are ${availableAccounts.length} available accounts.`;
     }
     
 
