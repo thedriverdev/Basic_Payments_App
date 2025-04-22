@@ -1,0 +1,45 @@
+@media only screen and (max-width: 767px) {
+
+  .sign-up-container {
+    text-align: center;
+  }
+  
+  .sign-in-container {
+    text-align: center;
+  
+  }
+  
+  .account-list-container {
+    margin-top: 10px;
+    text-align: center;
+  
+  }
+  
+  .account-list-table {
+    margin: auto;
+    text-align: center;
+  
+  }
+
+}
+
+.sign-up-container {
+  text-align: center;
+}
+
+.sign-in-container {
+  text-align: center;
+
+}
+
+.account-list-container {
+  margin-top: 50px;
+  text-align: center;
+
+}
+
+.account-list-table {
+  margin: auto;
+  text-align: center;
+
+}
