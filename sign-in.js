@@ -41,8 +41,8 @@ function signIn() {
         const accountNumberDisplay = document.querySelector(".account-number-display");
         const destinationAccountName = document.querySelector(".destination-account-name");
 
-        accountBalanceDisplay.innerHTML = `Balance: ₦${parseInt(matchedUser.userBalance)}`;
-        accountNumberDisplay.innerHTML = `Number: ${matchedUser.userAccount}`;
+        accountBalanceDisplay.innerHTML = `Account Balance: ₦${parseInt(matchedUser.userBalance)}`;
+        accountNumberDisplay.innerHTML = `Account Number: ${matchedUser.userAccount}`;
 
         const numberInput = document.querySelector(".number-input");
         const sendButton = document.querySelector(".send-button");
@@ -74,15 +74,15 @@ function signIn() {
                   numberInput.value = "";
                   destinationAccountName.value = "";
       
-                  accountBalanceDisplay.innerHTML = `Balance: ₦${matchedUser.userBalance}`;
-                  accountNumberDisplay.textContent = `Number: ${matchedUser.userAccount}`;
+                  accountBalanceDisplay.innerHTML = `Account Balance: ₦${matchedUser.userBalance}`;
+                  accountNumberDisplay.textContent = `Account Number: ${matchedUser.userAccount}`;
                 }
 
               }
 
             } else {
               feedbackDisplay.textContent = "Amount not enough.";
-              accountBalanceDisplay.innerHTML = `Balance: ₦${matchedUser.userBalance}`;
+              accountBalanceDisplay.innerHTML = `Account Balance: ₦${matchedUser.userBalance}`;
             }
 
           
@@ -103,7 +103,12 @@ const signOutFeedback = document.querySelector(".sign-out-feedback");
 
 function signOut() {
   localStorage.removeItem("loggedInUser");
-  signInFeedback.textContent = "Sign out successful!";
-  window.location.reload();
+  signInFeedback.textContent = "";
+  userAccountInfo.innerHTML = "";
+  transactionContainer.innerHTML = "Sign out successfully!";
+  
+  setTimeout(()=>{
+    window.location.reload();
+  }, 1500);
   
 }

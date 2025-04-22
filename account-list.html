@@ -3,22 +3,32 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    .account-list-container {
+      margin-left: 500px;
+    }
+  </style>
   <title>Number Of Moola Accounts</title>
 </head>
 <body>
-  <p class="account-count-display"></p>
+  <div class="account-list-container">
+    <p class="account-count-display"></p>
 
-  <table class="account-list-table" border="1">
-    <thead>
-      <tr>
-        <th>Serial Number</th>
-        <th>Account Name</th>
-        <th>Account Number</th>
-      </tr>
-    </thead>
-  </table>
+    <table class="account-list-table" border="1">
+      <thead>
+        <tr>
+          <th>Serial Number</th>
+          <th>Account Name</th>
+          <th>Account Number</th>
+        </tr>
+      </thead>
+    </table>
 
+    <button class="delete-button">Delete All Accounts</button>
+    <p>Have an account? <a href="sign-in.html">Sign in</a> or <br> <a href="index.html">Sign up</a> for a new account.</p>
+  </div> 
   <script>
+    const deleteButton = document.querySelector(".delete-button");
     const accountCountDisplay = document.querySelector(".account-count-display");
     const accountListTable = document.querySelector(".account-list-table");
 
@@ -32,11 +42,26 @@
         <td>${availableAccount.userAccount}</td>`;
 
         accountListTable.appendChild(row);
+        accountListTable.style.textAlign = "center";
       })
     }
 
-    let numOfAccounts = localStorage.getItem("numOfAccounts");
-    accountCountDisplay.innerHTML = `There are ${numOfAccounts} available accounts`;
+    let numOfAccounts = localStorage.getItem("numOfAccounts") || 0;
+
+    if (numOfAccounts === 0) {
+      accountCountDisplay.innerHTML = `There are no available accounts`;
+    } else if (numOfAccounts === 1) {
+      accountCountDisplay.innerHTML = `There's just ${numOfAccounts} available account`;
+    } else {
+      accountCountDisplay.innerHTML = `There are ${numOfAccounts} available accounts`;
+    }
+    
+
+    function deleteAccounts() {
+      localStorage.removeItem("availableAccounts");
+      localStorage.removeItem("numOfAccounts");
+      window.location.reload();
+    }deleteButton.onclick = deleteAccounts;
   </script>
   
 </body>

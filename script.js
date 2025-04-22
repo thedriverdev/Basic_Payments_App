@@ -5,8 +5,6 @@ const signUpButton = document.querySelector(".sign-up-button");
 const signUpFeedback = document.querySelector(".sign-up-feedback");
 const numOfAccountsDisplay = document.querySelector(".num-of-accounts");
 
-localStorage.clear();
-
 let availableAccounts = JSON.parse(localStorage.getItem("availableAccounts")) || [];
 
 function signUp() {
@@ -25,7 +23,7 @@ function signUp() {
     } else {
 
       if (userDetails.userName === "Alfie") {
-        userDetails.userBalance = 500;
+        userDetails.userBalance = 1000000;
         availableAccounts.push(userDetails);
         localStorage.setItem("availableAccounts", JSON.stringify(availableAccounts));
         localStorage.setItem("numOfAccounts", availableAccounts.length);
