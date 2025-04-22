@@ -8,8 +8,6 @@ const signInFeedback = document.querySelector(".sign-in-feedback");
 const userAccountInfo = document.querySelector(".user-account-info");
 const transactionContainer = document.querySelector(".transaction-container");
 
-localStorage.clear();
-
 signInHeader.textContent = "Sign in to Moola.com";
 
 function signIn() {
@@ -65,7 +63,7 @@ function signIn() {
                 feedbackDisplay.textContent = "Cannot send to origination account.";
               } else {
 
-                if (!isNaN(amount) && amount > parseInt(matchedUser.userBalance)) {
+                if (!isNaN(amount) && amount > matchedUser.userBalance) {
                   feedbackDisplay.textContent = "Insufficient funds!";
                 } else {
                   matchedUser.userBalance = parseInt(matchedUser.userBalance) - amount;
@@ -74,6 +72,7 @@ function signIn() {
                   feedbackDisplay.innerHTML = `₦${amount} sent to
                   Name: ${matchedDestination.userName} | Account Number: ${matchedDestination.userAccount}`;
                   numberInput.value = "";
+                  destinationAccountName.value = "";
       
                   accountBalanceDisplay.innerHTML = `Balance: ₦${matchedUser.userBalance}`;
                   accountNumberDisplay.textContent = `Number: ${matchedUser.userAccount}`;

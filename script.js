@@ -5,7 +5,7 @@ const signUpButton = document.querySelector(".sign-up-button");
 const signUpFeedback = document.querySelector(".sign-up-feedback");
 const numOfAccountsDisplay = document.querySelector(".num-of-accounts");
 
-let availableAccounts = JSON.parse(localStorage.getItem("availableAccounts")) || JSON.stringify(defaultAccount);
+let availableAccounts = JSON.parse(localStorage.getItem("availableAccounts")) || [];
 
 function signUp() {
 
@@ -16,7 +16,7 @@ function signUp() {
     userAccount: Math.floor(Math.random() * 9000) + 1000
   };
 
-  if (userDetails.userName.trim() !== null && userDetails.userPassword !== null && confirmPasswordInput.value === userDetails.userPassword) {
+  if (userDetails.userName.trim() !== "" && userDetails.userPassword !== "" && confirmPasswordInput.value !== "" && confirmPasswordInput.value === userDetails.userPassword) {
 
     if (availableAccounts.find((availableAccount)=>{return availableAccount.userName === userDetails.userName})) {
       signUpFeedback.textContent = "Username already taken!";
