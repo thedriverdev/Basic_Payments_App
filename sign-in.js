@@ -8,6 +8,8 @@ const signInFeedback = document.querySelector(".sign-in-feedback");
 const userAccountInfo = document.querySelector(".user-account-info");
 const transactionContainer = document.querySelector(".transaction-container");
 
+localStorage.clear();
+
 signInHeader.textContent = "Sign in to Moola.com";
 
 function signIn() {
