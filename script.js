@@ -5,6 +5,8 @@ const signUpButton = document.querySelector(".sign-up-button");
 const signUpFeedback = document.querySelector(".sign-up-feedback");
 const numOfAccountsDisplay = document.querySelector(".num-of-accounts");
 
+localStorage.clear();
+
 let availableAccounts = JSON.parse(localStorage.getItem("availableAccounts")) || [];
 
 function signUp() {
