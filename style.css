@@ -21,6 +21,18 @@
   
   }
 
+  span {
+    font-weight: bold;
+  }
+
+  .sign-in-button {
+    margin-top: 1px;
+  }
+
+  .sign-up-button {
+    margin-top: 1px;
+  }
+
 }
 
 .sign-up-container {
@@ -42,4 +54,16 @@
   margin: auto;
   text-align: center;
 
+}
+
+span {
+  font-weight: bold;
+}
+
+.sign-in-button {
+  margin-top: 1px;
+}
+
+.sign-up-button {
+  margin-top: 1px;
 }

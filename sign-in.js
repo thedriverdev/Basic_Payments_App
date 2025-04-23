@@ -69,20 +69,20 @@ function signIn() {
                   matchedUser.userBalance = parseInt(matchedUser.userBalance) - amount;
                   matchedDestination.userBalance = parseInt(matchedDestination.userBalance) + amount;
                   localStorage.setItem("availableAccounts", JSON.stringify(availableAccounts));
-                  feedbackDisplay.innerHTML = `₦${amount} sent to
-                  Name: ${matchedDestination.userName} | Account Number: ${matchedDestination.userAccount}`;
+                  feedbackDisplay.innerHTML = `<span>₦${amount}</span> sent to
+                  <span>Name: ${matchedDestination.userName} | Account Number: ${matchedDestination.userAccount}</span>`;
                   numberInput.value = "";
                   destinationAccountName.value = "";
       
-                  accountBalanceDisplay.innerHTML = `Account Balance: ₦${matchedUser.userBalance}`;
-                  accountNumberDisplay.textContent = `Account Number: ${matchedUser.userAccount}`;
+                  accountBalanceDisplay.innerHTML = `<span>Your Account Balance: ₦${matchedUser.userBalance}</span>`;
+                  accountNumberDisplay.innerHTML = `<span>Your Account Number: ${matchedUser.userAccount}</span>`;
                 }
 
               }
 
             } else {
               feedbackDisplay.textContent = "Amount not enough.";
-              accountBalanceDisplay.innerHTML = `Account Balance: ₦${matchedUser.userBalance}`;
+              accountBalanceDisplay.innerHTML = `<span>Account Balance: ₦${matchedUser.userBalance}</span>`;
             }
 
           
@@ -105,7 +105,7 @@ function signOut() {
   localStorage.removeItem("loggedInUser");
   signInFeedback.textContent = "";
   userAccountInfo.innerHTML = "";
-  transactionContainer.innerHTML = "Sign out successfully!";
+  transactionContainer.innerHTML = "You signed out successfully!";
   
   setTimeout(()=>{
     window.location.reload();
