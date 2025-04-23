@@ -8,7 +8,7 @@ const signInFeedback = document.querySelector(".sign-in-feedback");
 const userAccountInfo = document.querySelector(".user-account-info");
 const transactionContainer = document.querySelector(".transaction-container");
 
-signInHeader.textContent = "Sign in to Moola.com";
+signInHeader.innerHTML = `Sign in to your <i>Moola</i> account!`;
 
 function signIn() {
 
@@ -41,8 +41,8 @@ function signIn() {
         const accountNumberDisplay = document.querySelector(".account-number-display");
         const destinationAccountName = document.querySelector(".destination-account-name");
 
-        accountBalanceDisplay.innerHTML = `Account Balance: ₦${parseInt(matchedUser.userBalance)}`;
-        accountNumberDisplay.innerHTML = `Account Number: ${matchedUser.userAccount}`;
+        accountBalanceDisplay.innerHTML = `<span>Account Balance: ₦${parseInt(matchedUser.userBalance)}</span>`;
+        accountNumberDisplay.innerHTML = `<span>Account Number: ${matchedUser.userAccount}</span>`;
 
         const numberInput = document.querySelector(".number-input");
         const sendButton = document.querySelector(".send-button");
