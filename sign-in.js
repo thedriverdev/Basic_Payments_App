@@ -12,7 +12,7 @@ signInHeader.innerHTML = `Sign in to your <i>Moola</i> account!`;
 
 function signIn() {
 
-  let availableAccounts = JSON.parse(localStorage.getItem("availableAccounts"));
+  let availableAccounts = JSON.parse(localStorage.getItem("availableAccounts"))||[];
 
   let matchedUser = availableAccounts.find((userDetails) => { return nameInput.value === userDetails.userName && passwordInput.value === userDetails.userPassword});
 
