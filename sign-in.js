@@ -29,7 +29,7 @@ function signIn() {
     passwordInput.style.display = "none";
     signInButton.style.display = "none";
 
-    userAccountInfo.innerHTML = `<img src="default.jpeg" alt="Profile photo of ${matchedUser.userName}" /><br>`;
+    userAccountInfo.innerHTML = `<img src="default.jpeg" alt="Profile photo of ${matchedUser.userName}" />`;
 
     transactionContainer.innerHTML = `
         <input class="destination-account-name" type="text" placeholder="Enter name of recepient">
@@ -57,7 +57,7 @@ function signIn() {
 
           if (matchedDestination) {
             
-            if (!isNaN(amount) && amount > 0 && amount) {
+            if (!isNaN(amount) && amount > 0) {
 
               if (destinationAccountName.value === matchedUser.userName) {
                 feedbackDisplay.textContent = "Cannot send to origination account.";

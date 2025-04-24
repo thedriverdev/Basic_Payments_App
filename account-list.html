@@ -30,7 +30,7 @@
     const accountCountDisplay = document.querySelector(".account-count-display");
     const accountListTable = document.querySelector(".account-list-table");
 
-    let availableAccounts = JSON.parse(localStorage.getItem("availableAccounts"));
+    let availableAccounts = JSON.parse(localStorage.getItem("availableAccounts"))||[];
 
     if (Array.isArray(availableAccounts) && availableAccounts.length > 0) {
       availableAccounts.forEach((availableAccount, index) => {
@@ -42,21 +42,24 @@
         accountListTable.appendChild(row);
         accountListTable.style.textAlign = "center";
       })
+
     }
 
     if (availableAccounts.length === 0) {
       accountCountDisplay.innerHTML = `There are no available accounts.`;
+      
       deleteButton.disabled = true;
     } else if (availableAccounts.length === 1) {
+      
       accountCountDisplay.innerHTML = `There's just ${availableAccounts.length} available account.`;
     } else {
       accountCountDisplay.innerHTML = `There are ${availableAccounts.length} available accounts.`;
     }
     
-
     function deleteAccounts() {
       localStorage.removeItem("availableAccounts");
-      localStorage.removeItem("numOfAccounts");
+      localStorage.removeItem("numsOfAccounts");
+      availableAccounts.length = 0;
       window.location.reload();
     }deleteButton.onclick = deleteAccounts;
   </script>

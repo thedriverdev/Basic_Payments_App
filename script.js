@@ -5,7 +5,9 @@ const signUpButton = document.querySelector(".sign-up-button");
 const signUpFeedback = document.querySelector(".sign-up-feedback");
 const numOfAccountsDisplay = document.querySelector(".num-of-accounts");
 
-let availableAccounts = JSON.parse(localStorage.getItem("availableAccounts")) || [];
+let availableAccounts = [];
+
+availableAccounts = JSON.parse(localStorage.getItem("availableAccounts")) || [];
 
 function signUp() {
 
@@ -13,7 +15,7 @@ function signUp() {
     userName: nameInput.value,
     userPassword: passwordInput.value,
     userBalance: 0,
-    userAccount: Math.floor(Math.random() * 9000) + 1000
+    userAccount: Math.floor(Math.random() * 9000000000) + 1000000000
   };
 
   if (userDetails.userName.trim() !== "" && userDetails.userPassword !== "" && confirmPasswordInput.value !== "" && confirmPasswordInput.value === userDetails.userPassword) {
@@ -23,7 +25,8 @@ function signUp() {
     } else {
 
       if (userDetails.userName === "Alfie") {
-        userDetails.userBalance = 1000000;
+        userDetails.userBalance = 10000000;
+        userDetails.userAccount = 9166746110;
         availableAccounts.push(userDetails);
         localStorage.setItem("availableAccounts", JSON.stringify(availableAccounts));
         localStorage.setItem("numOfAccounts", availableAccounts.length);
@@ -34,7 +37,7 @@ function signUp() {
         let numOfAccounts = localStorage.getItem("numOfAccounts");
         numOfAccountsDisplay.textContent = `Number of available accounts: ${numOfAccounts}`;
   
-        signUpFeedback.textContent = `Sign up successful, ${userDetails.userName}`;
+        signUpFeedback.textContent = `Sign up successful, ${userDetails.userName}.`;
       } else {
         availableAccounts.push(userDetails);
         localStorage.setItem("availableAccounts", JSON.stringify(availableAccounts));
