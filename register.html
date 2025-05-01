@@ -5,36 +5,35 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="style.css">
   <link rel="icon" href="moola_icon.png" type="image/png" size="16x16">
-
-  <title>Sign In / Moola by Alfie</title>
+  
+  <title>Sign Up / Moola by Alfie</title>
 </head>
 <body>
-
-  <header>
+  <header id="header">
     <h1 id="heading"><span id="moola">Moola</span> by <span id="alfie">Alfie</span></h1>
     <p id="header-paragraph">Payments made easy, life made easier...</p>
     <p>Go to <a href="index.html">homepage</a>.</p>
   </header>
-  <div class="sign-in-container">
-    <p id="sign-in-header"></p>
+
+  <main class="sign-up-container">
+    <p id="sign-up-header">Register for a <i>Moola</i> account</p>
     <input class="name-input" type="text" placeholder="Enter name"><br>
     <input class="password-input" type="password" placeholder="Enter password"><br>
-    <button class="sign-in-button">Sign in</button>
-    <p class="sign-in-feedback"></p>
-    <p class="user-account-info"></p>
-    <div class="available-accounts-options"></div>
-    <div class="transaction-container">
+    <input class="confirm-password-input" type="password" placeholder="Confirm password"><br>
+    <button class="sign-up-button">Sign up</button>
+    <p class="sign-up-feedback"></p>
+    <p class="num-of-accounts"></p>
 
-    </div>
-    <p class="account-balance-display"></p>
-    <p class="account-number-display"></p>
+    <p>Have an account? <a href="sign-in.html">Sign in</a></p>
 
-    <p>Don't have an account? <a href="register.html">Sign up</a></p>
-  </div>
+    <p>Click <a href="account-list.html">here</a> to see all available accounts</p>
 
-  <script src="sign-in.js">
-    
-  </script>
+  </main>
+  <footer id="footer">
+
+  </footer>
+
+  <script src="script.js"></script>
   
 </body>
 </html>

@@ -1,5 +1,9 @@
 @media only screen and (max-width: 767px) {
 
+  body {
+    font-family: sans-serif;
+  }
+
   #moola {
     color: goldenrod;
   }
@@ -52,22 +56,6 @@
 }
 
 /* For PCs */
-
-#moola {
-  color: goldenrod;
-}
-#alfie {
-  font-style: italic;
-}
-
-#heading {
-  margin-bottom: 0;
-}
-#header-paragraph {
-  margin-top: 0;
-  font-style: italic;
-  font-weight: bold;
-}
 
 .sign-up-container {
   text-align: center;

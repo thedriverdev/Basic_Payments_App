@@ -1,0 +1,203 @@
+@media only screen and (max-width: 767px) {
+  body {
+    font-family: sans-serif;
+  }
+  
+  .header-container {
+    height: 105px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: auto;
+    border-bottom: solid 1px grey;
+  }
+  
+  .left-section {
+    display: flex;
+    width: 350px;
+    align-items: center;
+  }
+  .right-section {
+    display: flex;
+    width: 700px;
+    align-items: center;
+  }
+  
+  .header-link {
+    text-decoration: none;
+    margin: 20px;
+    color: grey;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 15px;
+  }
+  
+  .logo-link {
+    margin-left: 3px;
+    width: auto;
+    height: auto;
+  
+  }
+  
+  .about-link {
+    margin-left: 110px;
+  }
+  
+  .register-nav-button {
+    background-color: green;
+    border-radius: 5px;
+    border: none;
+    padding: 20px 40px;
+    margin-left: 15px;
+  }
+  .register-nav-link {
+    color: white;
+  }
+  
+  #main-moola {
+    color: green;
+  }
+  #main-alfie {
+    color: red;
+  }
+  
+  #heading {
+    margin-bottom: 0;
+  }
+  #header-paragraph {
+    margin-top: 0;
+    font-style: italic;
+    font-weight: bold;
+  }
+
+  .main-container {
+    text-align: center;
+    border: solid green;
+    height: 400px;
+  }
+  .heading-one {
+    margin-top: 100px;
+    margin-bottom: 0px;
+  }
+  .heading-three {
+    margin-top: 50px;
+    font-size: 20px;
+  }
+  .paragraph-one {
+    margin-top: 0;
+    margin-bottom: 20px;
+  }
+  .paragraph-two {
+    margin-top: 0;
+    margin-bottom: 20px;
+  }
+  .register-nav-link-two {
+    margin-top: 50px;
+    margin-bottom: 100px;
+  }
+  
+  .footer-container {
+    text-align: center;
+  }  
+  
+  
+}
+
+body {
+  font-family: sans-serif;
+}
+
+.header-container {
+  height: 105px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: auto;
+  border-bottom: solid 1px grey;
+}
+
+.left-section {
+  display: flex;
+  width: 350px;
+  align-items: center;
+}
+.right-section {
+  display: flex;
+  width: 700px;
+  align-items: center;
+}
+
+.header-link {
+  text-decoration: none;
+  margin: 20px;
+  color: grey;
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 15px;
+}
+
+.logo-link {
+  margin-left: 3px;
+  width: auto;
+  height: auto;
+
+}
+
+.about-link {
+  margin-left: 110px;
+}
+
+.register-nav-button {
+  background-color: green;
+  border-radius: 5px;
+  border: none;
+  padding: 20px 40px;
+  margin-left: 15px;
+}
+.register-nav-link {
+  color: white;
+}
+
+#main-moola {
+  color: green;
+}
+#main-alfie {
+  color: red;
+}
+
+#heading {
+  margin-bottom: 0;
+}
+#header-paragraph {
+  margin-top: 0;
+  font-style: italic;
+  font-weight: bold;
+}
+
+.main-container {
+  text-align: center;
+  border: solid green;
+  height: 400px;
+}
+.heading-one {
+  margin-top: 100px;
+  margin-bottom: 0px;
+}
+.heading-three {
+  margin-top: 50px;
+  font-size: 20px;
+}
+.paragraph-one {
+  margin-top: 0;
+  margin-bottom: 20px;
+}
+.paragraph-two {
+  margin-top: 0;
+  margin-bottom: 20px;
+}
+.register-nav-link-two {
+  margin-top: 50px;
+  margin-bottom: 100px;
+}
+
+.footer-container {
+  text-align: center;
+}
