@@ -4,7 +4,7 @@
   }
   
   .header-container {
-    height: 105px;
+    height: auto;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
@@ -14,12 +14,12 @@
   
   .left-section {
     display: flex;
-    width: 350px;
+    width: auto;
     align-items: center;
   }
   .right-section {
     display: flex;
-    width: 700px;
+    width: auto;
     align-items: center;
   }
   
@@ -39,7 +39,7 @@
   }
   
   .about-link {
-    margin-left: 110px;
+    margin-left: 50px;
   }
   
   .register-nav-button {
