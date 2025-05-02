@@ -1,119 +1,105 @@
 @media only screen and (max-width: 767px) {
   body {
     font-family: sans-serif;
+    padding: 10px;
   }
-  
+
+  .hamburger-icon {
+    display: block;
+    border-radius: 30px;
+    border: none;
+    background-color: white;
+  }
+
   .header-container {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 10px 0;
     height: auto;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    width: auto;
+    width: 100%;
     border-bottom: solid 1px grey;
   }
-  
-  .left-section {
-    display: flex;
-    width: auto;
-    align-items: center;
-  }
+
+  .left-section,
   .right-section {
-    display: flex;
-    width: auto;
-    align-items: center;
+    flex-direction: row;
+    flex-wrap: wrap;
+    width: 100%;
+    justify-content: space-between;
+    margin-bottom: 10px;
   }
-  
-  .header-link {
-    text-decoration: none;
-    margin: 20px;
-    color: grey;
-    font-family: 'Courier New', Courier, monospace;
-    font-size: 15px;
-  }
-  
+
   .logo-link {
-    margin-left: 3px;
-    width: auto;
-    height: auto;
-  
+    width: 100px;
+    margin-bottom: 10px;
   }
-  
+
+  .header-link {
+    font-size: 14px;
+    margin: 10px;
+  }
+
   .about-link {
-    margin-left: 50px;
+    margin-left: 10px;
   }
-  
+
   .register-nav-button {
-    background-color: green;
-    border-radius: 5px;
-    border: none;
-    padding: 20px 40px;
-    margin-left: 15px;
-  }
-  .register-nav-link {
-    color: white;
-  }
-  
-  #main-moola {
-    color: green;
-  }
-  #main-alfie {
-    color: red;
-  }
-  
-  #heading {
-    margin-bottom: 0;
-  }
-  #header-paragraph {
-    margin-top: 0;
-    font-style: italic;
-    font-weight: bold;
+    padding: 12px 20px;
+    font-size: 14px;
+    margin-left: 0;
+    margin-top: 10px;
   }
 
   .main-container {
-    text-align: center;
-    border: solid green;
-    height: 400px;
+    border-width: 1px;
+    padding: 20px 10px;
+    height: auto;
   }
+
   .heading-one {
-    margin-top: 100px;
-    margin-bottom: 0px;
+    font-size: 24px;
+    margin-top: 40px;
   }
+
   .heading-three {
-    margin-top: 50px;
-    font-size: 20px;
+    font-size: 18px;
+    margin-top: 20px;
   }
-  .paragraph-one {
-    margin-top: 0;
-    margin-bottom: 20px;
-  }
+
+  .paragraph-one,
   .paragraph-two {
-    margin-top: 0;
-    margin-bottom: 20px;
+    font-size: 14px;
+    margin: 10px 0;
   }
+
   .register-nav-link-two {
-    margin-top: 50px;
-    margin-bottom: 100px;
+    display: inline-block;
+    margin: 30px auto 50px auto;
+    font-size: 14px;
+    padding: 10px 15px;
   }
-  
+
   .footer-container {
     text-align: center;
-  }  
-  
-  
+    font-size: 12px;
+    padding: 10px 0;
+  }
 }
+
 
 body {
   font-family: sans-serif;
 }
 
 .header-container {
-  height: 105px;
+  height: 150px;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   width: auto;
   border-bottom: solid 1px grey;
 }
+
 
 .left-section {
   display: flex;
