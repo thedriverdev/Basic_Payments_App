@@ -1,7 +1,7 @@
 @media only screen and (max-width: 767px) {
 
   body {
-    font-family: 'Courier New', Courier, monospace;
+    font-family: 'Times New Roman', Times, serif;
     text-align: center;
   }
 
@@ -52,7 +52,7 @@
 /* For PCs */
 
 body {
-  font-family: 'Courier New', Courier, monospace;
+  font-family: 'Times New Roman', Times, serif;
   text-align: center;
 }
 
