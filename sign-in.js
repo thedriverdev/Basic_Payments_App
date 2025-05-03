@@ -1,12 +1,13 @@
 // Sign in
 
 const signInHeader = document.getElementById("sign-in-header");
-const nameInput = document.querySelector(".name-input");
+const phoneNumberInput = document.querySelector(".phone-number-input");
 const passwordInput = document.querySelector(".password-input");
 const signInButton = document.querySelector(".sign-in-button");
 const signInFeedback = document.querySelector(".sign-in-feedback");
 const userAccountInfo = document.querySelector(".user-account-info");
 const transactionContainer = document.querySelector(".transaction-container");
+const signInContainer = document.querySelector(".sign-in-container");
 
 signInHeader.innerHTML = `Sign in to your <i>Moola</i> account!`;
 
@@ -14,52 +15,54 @@ function signIn() {
 
   let availableAccounts = JSON.parse(localStorage.getItem("availableAccounts"))||[];
 
-  let matchedUser = availableAccounts.find((userDetails) => { return nameInput.value === userDetails.userName && passwordInput.value === userDetails.userPassword});
+  let matchedUser = availableAccounts.find((userDetails) => { return phoneNumberInput.value === userDetails.userPhoneNumber && passwordInput.value === userDetails.userPassword});
 
   if (matchedUser) {
 
     signInHeader.style.display = "none";
     
     signInFeedback.innerHTML = `Sign in successful!
-    Welcome, ${matchedUser.userName}! <button class="sign-out-button" onclick="signOut();">Sign out</button>`;
+    Welcome, ${matchedUser.userFirstName}! <button class="sign-out-button" onclick="signOut();">Sign out</button>`;
 
-    localStorage.setItem("loggedInUser", matchedUser.userName);
+    localStorage.setItem("loggedInUser", matchedUser.userFirstName);
 
-    nameInput.style.display = "none";
+    phoneNumberInput.style.display = "none";
     passwordInput.style.display = "none";
     signInButton.style.display = "none";
 
-    userAccountInfo.innerHTML = `<img src="default.jpeg" alt="Profile photo of ${matchedUser.userName}" />`;
+    userAccountInfo.innerHTML = `<img src="default.jpeg" alt="Profile photo of ${matchedUser.userFirstName}" />`;
 
     transactionContainer.innerHTML = `
-        <input class="destination-account-name" type="text" placeholder="Enter name of recepient">
+        <input class="destination-account-number" type="text" placeholder="Enter account number of recepient">
         <input class="number-input" type="number" placeholder="Enter amount">
         <button class="send-button">Send money</button>
         <p class="feedback-display"></p>`;
 
         const accountBalanceDisplay = document.querySelector(".account-balance-display");
         const accountNumberDisplay = document.querySelector(".account-number-display");
-        const destinationAccountName = document.querySelector(".destination-account-name");
+        const destinationAccountNumber = document.querySelector(".destination-account-number");
 
         accountBalanceDisplay.innerHTML = `<span>Account Balance: ₦${parseInt(matchedUser.userBalance)}</span>`;
-        accountNumberDisplay.innerHTML = `<span>Account Number: ${matchedUser.userAccount}</span>`;
+        accountNumberDisplay.innerHTML = `<span>Account Number: ${matchedUser.userAccountNumber}</span>`;
 
         const numberInput = document.querySelector(".number-input");
         const sendButton = document.querySelector(".send-button");
         const feedbackDisplay = document.querySelector(".feedback-display");
+
+        signInContainer.style.display = "none";
 
 
         function sendMoney() {
 
           const amount = parseInt(numberInput.value);
 
-          let matchedDestination = availableAccounts.find((availableAccount)=>{return availableAccount.userName === destinationAccountName.value});
+          let matchedDestination = availableAccounts.find((availableAccount)=>{return availableAccount.userAccountNumber === destinationAccountNumber.value});
 
           if (matchedDestination) {
             
             if (!isNaN(amount) && amount > 0) {
 
-              if (destinationAccountName.value === matchedUser.userName) {
+              if (destinationAccountNumber.value === matchedUser.userAccountNumber) {
                 feedbackDisplay.textContent = "Cannot send to origination account.";
               } else {
 
@@ -70,12 +73,12 @@ function signIn() {
                   matchedDestination.userBalance = parseInt(matchedDestination.userBalance) + amount;
                   localStorage.setItem("availableAccounts", JSON.stringify(availableAccounts));
                   feedbackDisplay.innerHTML = `<span>₦${amount}</span> sent to
-                  <span>Name: ${matchedDestination.userName} | Account Number: ${matchedDestination.userAccount}</span>`;
+                  <span>Name: ${matchedDestination.userFirstName} ${matchedDestination.userMiddleName} ${matchedDestination.userLastName}| Account Number: ${matchedDestination.userAccountNumber}</span>`;
                   numberInput.value = "";
-                  destinationAccountName.value = "";
+                  destinationAccountNumber.value = "";
       
                   accountBalanceDisplay.innerHTML = `<span>Your Account Balance: ₦${matchedUser.userBalance}</span>`;
-                  accountNumberDisplay.innerHTML = `<span>Your Account Number: ${matchedUser.userAccount}</span>`;
+                  accountNumberDisplay.innerHTML = `<span>Your Account Number: ${matchedUser.userAccountNumber}</span>`;
                 }
 
               }

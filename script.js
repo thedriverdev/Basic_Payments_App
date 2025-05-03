@@ -1,7 +1,12 @@
-const nameInput = document.querySelector(".name-input");
+const formField = document.querySelector(".form-field");
+const firstNameInput = document.querySelector(".first-name-input");
+const middleNameInput = document.querySelector(".middle-name-input");
+const lastNameInput = document.querySelector(".last-name-input");
+const phoneNumberInput = document.querySelector(".phone-number-input");
 const passwordInput = document.querySelector(".password-input");
 const confirmPasswordInput = document.querySelector(".confirm-password-input");
 const signUpButton = document.querySelector(".sign-up-button");
+const signUpHeader = document.querySelector("#sign-up-header");
 const signUpFeedback = document.querySelector(".sign-up-feedback");
 const numOfAccountsDisplay = document.querySelector(".num-of-accounts");
 
@@ -11,45 +16,60 @@ availableAccounts = JSON.parse(localStorage.getItem("availableAccounts")) || [];
 
 function signUp() {
 
+  
+
   let userDetails = {
-    userName: nameInput.value,
+    userFirstName: firstNameInput.value,
+    userMiddleName: middleNameInput.value,
+    userLastName: lastNameInput.value,
+    userPhoneNumber: phoneNumberInput.value,
+    userAccountNumber: phoneNumberInput.value.substring(1),
     userPassword: passwordInput.value,
-    userBalance: 0,
-    userAccount: Math.floor(Math.random() * 9000000000) + 1000000000
+    userBalance: 0
   };
 
-  if (userDetails.userName.trim() !== "" && userDetails.userPassword !== "" && confirmPasswordInput.value !== "" && confirmPasswordInput.value === userDetails.userPassword) {
+  if (userDetails.userFirstName !== "" && userDetails.userLastName !== "" && userDetails.userPassword !== "" && userDetails.userPhoneNumber !== "" && confirmPasswordInput.value !== "" && confirmPasswordInput.value === userDetails.userPassword) {
 
-    if (availableAccounts.find((availableAccount)=>{return availableAccount.userName === userDetails.userName})) {
-      signUpFeedback.textContent = "Username already taken!";
+    if (availableAccounts.find((availableAccount)=>{return availableAccount.userPhoneNumber === userDetails.userPhoneNumber})) {
+      signUpFeedback.textContent = "Phone number already registered!";
+
     } else {
 
-      if (userDetails.userName === "Alfie") {
+      if (userDetails.userPhoneNumber === "09166746110" && userDetails.userFirstName === "Alfred") {
         userDetails.userBalance = 10000000;
-        userDetails.userAccount = 9166746110;
         availableAccounts.push(userDetails);
         localStorage.setItem("availableAccounts", JSON.stringify(availableAccounts));
         localStorage.setItem("numOfAccounts", availableAccounts.length);
   
-        nameInput.value = "";
+        firstNameInput.value = "";
+        middleNameInput.value = "";
+        lastNameInput.value = "";
+        phoneNumberInput.value = "";
         passwordInput.value = "";
         confirmPasswordInput.value = "";
+        formField.style.display = "none";
+        signUpHeader.style.display = "none";
         let numOfAccounts = localStorage.getItem("numOfAccounts");
         numOfAccountsDisplay.textContent = `Number of available accounts: ${numOfAccounts}`;
   
-        signUpFeedback.textContent = `Sign up successful, ${userDetails.userName}.`;
+        signUpFeedback.textContent = `Sign up successful, dear ${userDetails.userFirstName}.`;
       } else {
         availableAccounts.push(userDetails);
         localStorage.setItem("availableAccounts", JSON.stringify(availableAccounts));
         localStorage.setItem("numOfAccounts", availableAccounts.length);
   
-        nameInput.value = "";
+        firstNameInput.value = "";
+        middleNameInput.value = "";
+        lastNameInput.value = "";
+        phoneNumberInput.value = "";
         passwordInput.value = "";
         confirmPasswordInput.value = "";
+        formField.style.display = "none";
+        signUpHeader.style.display = "none";
         let numOfAccounts = localStorage.getItem("numOfAccounts");
         numOfAccountsDisplay.textContent = `Number of available accounts: ${numOfAccounts}`;
   
-        signUpFeedback.textContent = `Sign up successful, ${userDetails.userName}`;
+        signUpFeedback.textContent = `Sign up successful, dear ${userDetails.userFirstName}`;
       }
 
     }

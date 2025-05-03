@@ -41,9 +41,16 @@
     if (Array.isArray(availableAccounts) && availableAccounts.length > 0) {
       availableAccounts.forEach((availableAccount, index) => {
         let row = document.createElement("tr");
+        //let userAccountNumber = availableAccount.userPhoneNumber;
+        // if (availableAccount.userPhoneNumber[0] === "0") {
+        //   userAccountNumber = availableAccount.userPhoneNumber.substring(1);
+        // }
+        if (availableAccount.userMiddleName === undefined) {
+          availableAccount.userMiddleName = "";
+        }
         row.innerHTML = `<td>${index+1}</td>
-        <td>${availableAccount.userName}</td>
-        <td>${availableAccount.userAccount}</td>`;
+        <td>${availableAccount.userFirstName} ${availableAccount.userMiddleName} ${availableAccount.userLastName}</td>
+        <td>${availableAccount.userAccountNumber}</td>`;
 
         accountListTable.appendChild(row);
         accountListTable.style.textAlign = "center";
