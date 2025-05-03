@@ -21,8 +21,8 @@ function signIn() {
 
     signInHeader.style.display = "none";
     
-    signInFeedback.innerHTML = `Sign in successful!
-    Welcome, ${matchedUser.userFirstName}! <button class="sign-out-button" onclick="signOut();">Sign out</button>`;
+    signInFeedback.innerHTML = `Sign in successful!<br>
+    Welcome, ${matchedUser.userFirstName}!  <button class="sign-out-button" onclick="signOut();">Sign out</button>`;
 
     localStorage.setItem("loggedInUser", matchedUser.userFirstName);
 
@@ -30,7 +30,10 @@ function signIn() {
     passwordInput.style.display = "none";
     signInButton.style.display = "none";
 
-    userAccountInfo.innerHTML = `<img src="default.jpeg" alt="Profile photo of ${matchedUser.userFirstName}" />`;
+    userAccountInfo.innerHTML = `<img src="default.jpeg" alt="Profile photo of ${matchedUser.userFirstName}" />
+    <br> <p style="margin-top:0px; margin-bottom: 0px; font-size: 13px; display: inline;"> Upload new photo?
+    </p> <input class="image-upload" type="file" name="photo" accept="image/*" multiple>`;
+    const imageUpload = document.querySelector(".image-upload");
 
     transactionContainer.innerHTML = `
         <input class="destination-account-number" type="text" placeholder="Enter account number of recepient">
@@ -69,16 +72,35 @@ function signIn() {
                 if (!isNaN(amount) && amount > matchedUser.userBalance) {
                   feedbackDisplay.textContent = "Insufficient funds!";
                 } else {
-                  matchedUser.userBalance = parseInt(matchedUser.userBalance) - amount;
-                  matchedDestination.userBalance = parseInt(matchedDestination.userBalance) + amount;
-                  localStorage.setItem("availableAccounts", JSON.stringify(availableAccounts));
-                  feedbackDisplay.innerHTML = `<span>₦${amount}</span> sent to
-                  <span>Name: ${matchedDestination.userFirstName} ${matchedDestination.userMiddleName} ${matchedDestination.userLastName}| Account Number: ${matchedDestination.userAccountNumber}</span>`;
-                  numberInput.value = "";
-                  destinationAccountNumber.value = "";
-      
-                  accountBalanceDisplay.innerHTML = `<span>Your Account Balance: ₦${matchedUser.userBalance}</span>`;
-                  accountNumberDisplay.innerHTML = `<span>Your Account Number: ${matchedUser.userAccountNumber}</span>`;
+
+                  feedbackDisplay.innerHTML = `Send <span>₦${amount}</span> to <br>
+                  <span>Name: ${matchedDestination.userFirstName} ${matchedDestination.userMiddleName} ${matchedDestination.userLastName} <br>
+                  Account Number: ${matchedDestination.userAccountNumber}</span> <br>
+                  <button id="confirm-yes">YES</button>
+                  <button id="confirm-no">NO</button>`;
+                  const confirmYes = document.getElementById("confirm-yes");
+                  const confirmNo = document.getElementById("confirm-no");
+
+                  // Confirm send
+                  function confirmSend() {
+                    matchedUser.userBalance = parseInt(matchedUser.userBalance) - amount;
+                    matchedDestination.userBalance = parseInt(matchedDestination.userBalance) + amount;
+                    localStorage.setItem("availableAccounts", JSON.stringify(availableAccounts));
+                    feedbackDisplay.innerHTML = `<span>₦${amount}</span> sent to <br>
+                    <span>Name: ${matchedDestination.userFirstName} ${matchedDestination.userMiddleName} ${matchedDestination.userLastName}<br>Account Number: ${matchedDestination.userAccountNumber}</span>`;
+                    numberInput.value = "";
+                    destinationAccountNumber.value = "";
+        
+                    accountBalanceDisplay.innerHTML = `<span>Your Account Balance: ₦${matchedUser.userBalance}</span>`;
+                    accountNumberDisplay.innerHTML = `<span>Your Account Number: ${matchedUser.userAccountNumber}</span>`;
+                  }confirmYes.onclick = confirmSend;
+
+                  // Deny send
+
+                  function denySend() {
+                    feedbackDisplay.textContent = "Transaction cancelled!";
+                  }confirmNo.onclick = denySend;
+
                 }
 
               }
