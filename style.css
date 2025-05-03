@@ -13,6 +13,10 @@
     margin-top: 0;
   }
 
+  label {
+    font-size: 13px;
+  }
+
   .sign-up-container {
     text-align: center;
   }
@@ -54,6 +58,10 @@
 body {
   font-family: 'Times New Roman', Times, serif;
   text-align: center;
+}
+
+label {
+  font-size: 13px;
 }
 
 .sign-up-container {

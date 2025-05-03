@@ -8,6 +8,15 @@
     margin-top: 1px;
   }
 
+  #paragraph-one {
+    font-size: 12px;
+    margin-bottom: 3px;
+  }
+  
+  label {
+    font-size: 13px;
+  }
+
   .footer-container {
     text-align: center;
     font-size: 10px;
@@ -27,6 +36,15 @@ body {
 
 #forms {
   margin-bottom: 3px;
+}
+
+#paragraph-one {
+  font-size: 12px;
+  margin-bottom: 3px;
+}
+
+label {
+  font-size: 13px;
 }
 
 .header-container {
