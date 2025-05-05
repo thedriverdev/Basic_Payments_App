@@ -76,30 +76,37 @@ function signIn() {
                   feedbackDisplay.innerHTML = `Send <span>₦${amount}</span> to <br>
                   <span>Name: ${matchedDestination.userFirstName} ${matchedDestination.userMiddleName} ${matchedDestination.userLastName} <br>
                   Account Number: ${matchedDestination.userAccountNumber}</span> <br>
-                  <button id="confirm-yes">YES</button>
-                  <button id="confirm-no">NO</button>`;
-                  const confirmYes = document.getElementById("confirm-yes");
-                  const confirmNo = document.getElementById("confirm-no");
+                  <input id="confirm-txn-password-input" type="password" placeholder="Enter your password"><button id="confirm-txn-button">Confirm</button>
+                  <button id="deny-txn-button">Deny</button>`;
+                  const confirmTxnPassword = document.getElementById("confirm-txn-password-input");
+                  const confirmTxnButton = document.getElementById("confirm-txn-button");
+                  const confirmNo = document.getElementById("deny-txn-button");
 
                   // Confirm send
-                  function confirmSend() {
-                    matchedUser.userBalance = parseInt(matchedUser.userBalance) - amount;
-                    matchedDestination.userBalance = parseInt(matchedDestination.userBalance) + amount;
-                    localStorage.setItem("availableAccounts", JSON.stringify(availableAccounts));
-                    feedbackDisplay.innerHTML = `<span>₦${amount}</span> sent to <br>
-                    <span>Name: ${matchedDestination.userFirstName} ${matchedDestination.userMiddleName} ${matchedDestination.userLastName}<br>Account Number: ${matchedDestination.userAccountNumber}</span>`;
-                    numberInput.value = "";
-                    destinationAccountNumber.value = "";
-        
-                    accountBalanceDisplay.innerHTML = `<span>Your Account Balance: ₦${matchedUser.userBalance}</span>`;
-                    accountNumberDisplay.innerHTML = `<span>Your Account Number: ${matchedUser.userAccountNumber}</span>`;
-                  }confirmYes.onclick = confirmSend;
+                  function confirmTxn() {
+
+                    if (confirmTxnPassword.value === matchedUser.userPassword) {
+                      matchedUser.userBalance = parseInt(matchedUser.userBalance) - amount;
+                      matchedDestination.userBalance = parseInt(matchedDestination.userBalance) + amount;
+                      localStorage.setItem("availableAccounts", JSON.stringify(availableAccounts));
+                      feedbackDisplay.innerHTML = `<span>₦${amount}</span> sent to <br>
+                      <span>Name: ${matchedDestination.userFirstName} ${matchedDestination.userMiddleName} ${matchedDestination.userLastName}<br>Account Number: ${matchedDestination.userAccountNumber}</span>`;
+                      numberInput.value = "";
+                      destinationAccountNumber.value = "";
+          
+                      accountBalanceDisplay.innerHTML = `<span>Your Account Balance: ₦${matchedUser.userBalance}</span>`;
+                      accountNumberDisplay.innerHTML = `<span>Your Account Number: ${matchedUser.userAccountNumber}</span>`;
+                    } else {
+                      feedbackDisplay.textContent = "Wrong password!";
+                    }
+
+                  }confirmTxnButton.onclick = confirmTxn;
 
                   // Deny send
 
-                  function denySend() {
+                  function denyTxn() {
                     feedbackDisplay.textContent = "Transaction cancelled!";
-                  }confirmNo.onclick = denySend;
+                  }confirmNo.onclick = denyTxn;
 
                 }
 

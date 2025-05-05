@@ -16,7 +16,7 @@ availableAccounts = JSON.parse(localStorage.getItem("availableAccounts")) || [];
 
 function signUp() {
 
-  
+
 
   let userDetails = {
     userFirstName: firstNameInput.value,
@@ -41,12 +41,6 @@ function signUp() {
         localStorage.setItem("availableAccounts", JSON.stringify(availableAccounts));
         localStorage.setItem("numOfAccounts", availableAccounts.length);
   
-        firstNameInput.value = "";
-        middleNameInput.value = "";
-        lastNameInput.value = "";
-        phoneNumberInput.value = "";
-        passwordInput.value = "";
-        confirmPasswordInput.value = "";
         formField.style.display = "none";
         signUpHeader.style.display = "none";
         let numOfAccounts = localStorage.getItem("numOfAccounts");
@@ -57,13 +51,7 @@ function signUp() {
         availableAccounts.push(userDetails);
         localStorage.setItem("availableAccounts", JSON.stringify(availableAccounts));
         localStorage.setItem("numOfAccounts", availableAccounts.length);
-  
-        firstNameInput.value = "";
-        middleNameInput.value = "";
-        lastNameInput.value = "";
-        phoneNumberInput.value = "";
-        passwordInput.value = "";
-        confirmPasswordInput.value = "";
+
         formField.style.display = "none";
         signUpHeader.style.display = "none";
         let numOfAccounts = localStorage.getItem("numOfAccounts");

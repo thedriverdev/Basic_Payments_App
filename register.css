@@ -13,8 +13,9 @@
     margin-bottom: 3px;
   }
   
-  label {
+  .label {
     font-size: 13px;
+    display: inline;
   }
 
   .footer-container {
@@ -34,7 +35,7 @@ body {
   margin-top: 1px;
 }
 
-#forms {
+.forms {
   margin-bottom: 3px;
 }
 
@@ -43,8 +44,9 @@ body {
   margin-bottom: 3px;
 }
 
-label {
+.label {
   font-size: 13px;
+  display: inline;
 }
 
 .header-container {
