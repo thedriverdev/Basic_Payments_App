@@ -14,6 +14,19 @@ signInHeader.innerHTML = `Sign in to your <i>Moola</i> account!`;
 
 function signIn() {
 
+  fetch("https://localhost:7155/api/moolabyalfie/sign-in", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify({
+      UserPhoneNumber: phoneNumberInput.value,
+      UserPassword: passwordInput.value
+    })
+  })
+  .then(response => response.json())
+  .catch(error => console.error(error));
+
   let availableAccounts = JSON.parse(localStorage.getItem("availableAccounts"))||[];
 
 
