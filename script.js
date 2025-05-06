@@ -16,8 +16,6 @@ availableAccounts = JSON.parse(localStorage.getItem("availableAccounts")) || [];
 
 function signUp() {
 
-
-
   let userDetails = {
     userFirstName: firstNameInput.value,
     userMiddleName: middleNameInput.value,
@@ -40,6 +38,16 @@ function signUp() {
         availableAccounts.push(userDetails);
         localStorage.setItem("availableAccounts", JSON.stringify(availableAccounts));
         localStorage.setItem("numOfAccounts", availableAccounts.length);
+
+        fetch("https://localhost:7155/api/moolabyalfie/sign-up", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify(userDetails)
+        })
+        .then(response => response.json())
+        .catch(error => console.error(error));
   
         formField.style.display = "none";
         signUpHeader.style.display = "none";
@@ -51,6 +59,16 @@ function signUp() {
         availableAccounts.push(userDetails);
         localStorage.setItem("availableAccounts", JSON.stringify(availableAccounts));
         localStorage.setItem("numOfAccounts", availableAccounts.length);
+
+        fetch("https://localhost:7155/api/moolabyalfie/sign-up", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify(userDetails)
+        })
+        .then(response => response.json())
+        .catch(error => console.error(error));
 
         formField.style.display = "none";
         signUpHeader.style.display = "none";

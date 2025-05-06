@@ -1,5 +1,4 @@
 // Sign in
-
 const signInHeader = document.getElementById("sign-in-header");
 const phoneNumberInput = document.querySelector(".phone-number-input");
 const passwordInput = document.querySelector(".password-input");
@@ -41,7 +40,6 @@ function signIn() {
     <button class="upload-button">Upload</button>`;
     const imageUploadInput = document.querySelector(".image-upload-input");
     const uploadButton = document.querySelector(".upload-button");
-    //const profilePhoto = document.getElementById("profilePhoto");
 
     function uploadImage() {
 
@@ -137,7 +135,6 @@ function signIn() {
                   }confirmTxnButton.onclick = confirmTxn;
 
                   // Deny send
-
                   function denyTxn() {
                     feedbackDisplay.textContent = "Transaction cancelled!";
                   }confirmNo.onclick = denyTxn;
