@@ -30,10 +30,37 @@ function signIn() {
     passwordInput.style.display = "none";
     signInButton.style.display = "none";
 
-    userAccountInfo.innerHTML = `<img src="default.jpeg" alt="Profile photo of ${matchedUser.userFirstName}" />
+    userAccountInfo.innerHTML = `<img id="profilePhoto" src="${matchedUser.profilePhoto || 'default.jpeg'}" alt="Profile photo of ${matchedUser.userFirstName}" />
     <br> <p style="margin-top:0px; margin-bottom: 0px; font-size: 13px; display: inline;"> Upload new photo?
-    </p> <input class="image-upload" type="file" name="photo" accept="image/*" multiple>`;
-    const imageUpload = document.querySelector(".image-upload");
+    </p> <input class="image-upload-input" type="file" name="photo" accept="image/*" multiple>
+    <button class="upload-button">Upload</button>`;
+    const imageUploadInput = document.querySelector(".image-upload-input");
+    const uploadButton = document.querySelector(".upload-button");
+
+    function uploadImage() {
+
+      const file = imageUploadInput.files[0];
+      if (file) {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+          profilePhoto.src = e.target.result;
+          
+        };
+        reader.readAsDataURL(file);
+
+        localStorage.setItem("profilePhoto", profilePhoto.src);
+      } else {
+        const originalHTML = userAccountInfo.innerHTML;
+        userAccountInfo.textContent = "No image file selected";
+
+        setTimeout(()=>{
+
+          userAccountInfo.innerHTML = originalHTML;
+          document.querySelector(".upload-button").onclick = uploadImage;
+        }, 2000);
+      }
+
+    }uploadButton.onclick = uploadImage;
 
     transactionContainer.innerHTML = `
         <input class="destination-account-number" type="text" placeholder="Enter account number of recepient">
