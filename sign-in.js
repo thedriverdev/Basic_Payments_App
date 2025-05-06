@@ -11,18 +11,23 @@ const signInContainer = document.querySelector(".sign-in-container");
 
 signInHeader.innerHTML = `Sign in to your <i>Moola</i> account!`;
 
+
+
 function signIn() {
 
   let availableAccounts = JSON.parse(localStorage.getItem("availableAccounts"))||[];
+
 
   let matchedUser = availableAccounts.find((userDetails) => { return phoneNumberInput.value === userDetails.userPhoneNumber && passwordInput.value === userDetails.userPassword});
 
   if (matchedUser) {
 
+    let storedPhoto = localStorage.getItem(`profilePhoto-${matchedUser.userPhoneNumber}`);
+
     signInHeader.style.display = "none";
     
     signInFeedback.innerHTML = `Sign in successful!<br>
-    Welcome, ${matchedUser.userFirstName}!  <button class="sign-out-button" onclick="signOut();">Sign out</button>`;
+    Welcome, ${matchedUser.userFirstName}! <button class="sign-out-button" onclick="signOut();">Sign out</button>`;
 
     localStorage.setItem("loggedInUser", matchedUser.userFirstName);
 
@@ -30,12 +35,13 @@ function signIn() {
     passwordInput.style.display = "none";
     signInButton.style.display = "none";
 
-    userAccountInfo.innerHTML = `<img id="profilePhoto" src="${matchedUser.profilePhoto || 'default.jpeg'}" alt="Profile photo of ${matchedUser.userFirstName}" />
+    userAccountInfo.innerHTML = `<img id="profilePhoto" src="${storedPhoto || 'default.jpeg'}" alt="Profile photo of ${matchedUser.userFirstName}" />
     <br> <p style="margin-top:0px; margin-bottom: 0px; font-size: 13px; display: inline;"> Upload new photo?
     </p> <input class="image-upload-input" type="file" name="photo" accept="image/*" multiple>
     <button class="upload-button">Upload</button>`;
     const imageUploadInput = document.querySelector(".image-upload-input");
     const uploadButton = document.querySelector(".upload-button");
+    //const profilePhoto = document.getElementById("profilePhoto");
 
     function uploadImage() {
 
@@ -44,11 +50,12 @@ function signIn() {
         const reader = new FileReader();
         reader.onload = function(e) {
           profilePhoto.src = e.target.result;
+
+          localStorage.setItem(`profilePhoto-${matchedUser.userPhoneNumber}`, profilePhoto.src);
           
         };
         reader.readAsDataURL(file);
 
-        localStorage.setItem("profilePhoto", profilePhoto.src);
       } else {
         const originalHTML = userAccountInfo.innerHTML;
         userAccountInfo.textContent = "No image file selected";
@@ -60,10 +67,10 @@ function signIn() {
         }, 2000);
       }
 
-    }uploadButton.onclick = uploadImage;
+    } uploadButton.onclick = uploadImage;
 
     transactionContainer.innerHTML = `
-        <input class="destination-account-number" type="text" placeholder="Enter account number of recepient">
+        <input class="destination-account-number" type="text" placeholder="Enter account number of recipient">
         <input class="number-input" type="number" placeholder="Enter amount">
         <button class="send-button">Send money</button>
         <p class="feedback-display"></p>`;
