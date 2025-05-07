@@ -41,10 +41,7 @@
     if (Array.isArray(availableAccounts) && availableAccounts.length > 0) {
       availableAccounts.forEach((availableAccount, index) => {
         let row = document.createElement("tr");
-        //let userAccountNumber = availableAccount.userPhoneNumber;
-        // if (availableAccount.userPhoneNumber[0] === "0") {
-        //   userAccountNumber = availableAccount.userPhoneNumber.substring(1);
-        // }
+
         if (availableAccount.userMiddleName === undefined) {
           availableAccount.userMiddleName = "";
         }
@@ -70,8 +67,7 @@
     }
     
     function deleteAccounts() {
-      localStorage.removeItem("availableAccounts");
-      localStorage.removeItem("numsOfAccounts");
+      localStorage.clear();
       availableAccounts.length = 0;
       window.location.reload();
     }deleteButton.onclick = deleteAccounts;

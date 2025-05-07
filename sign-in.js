@@ -24,8 +24,25 @@ function signIn() {
       UserPassword: passwordInput.value
     })
   })
-  .then(response => response.json())
-  .catch(error => console.error(error));
+  .then(response => {if (!response.ok) {
+    throw new Error("Sign-in failed");
+  } return response.json()})
+  .then(moolaByAlfieAccount => {
+    return fetch(`https://localhost:7155/api/moolabyalfie/profile/${moolaByAlfieAccount.userPhoneNumber}`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json"
+      }
+    })
+  })
+  .then(response => {if (!response.ok) {
+    throw new Error("Profile fetch failed");
+  }return response.json();
+  })
+  .then(data => {
+    console.log("Profile data:", data);
+  })
+  .catch(error => {console.error("Error: ", error)});
 
   let availableAccounts = JSON.parse(localStorage.getItem("availableAccounts"))||[];
 
@@ -41,7 +58,7 @@ function signIn() {
     signInFeedback.innerHTML = `Sign in successful!<br>
     Welcome, ${matchedUser.userFirstName}! <button class="sign-out-button" onclick="signOut();">Sign out</button>`;
 
-    localStorage.setItem("loggedInUser", matchedUser.userFirstName);
+    localStorage.setItem("loggedInUser", matchedUser.userPhoneNumber);
 
     phoneNumberInput.style.display = "none";
     passwordInput.style.display = "none";
@@ -81,7 +98,7 @@ function signIn() {
     } uploadButton.onclick = uploadImage;
 
     transactionContainer.innerHTML = `
-        <input class="destination-account-number" type="text" placeholder="Enter account number of recipient">
+        <input class="destination-account-number" type="text" placeholder="Recipient account number">
         <input class="number-input" type="number" placeholder="Enter amount">
         <button class="send-button">Send money</button>
         <p class="feedback-display"></p>`;
