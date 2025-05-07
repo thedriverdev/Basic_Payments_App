@@ -47,6 +47,9 @@ function signUp() {
           body: JSON.stringify(userDetails)
         })
         .then(response => response.json())
+        .then(data => {
+          console.log("Sign-up data:", data);
+        })
         .catch(error => console.error(error));
   
         formField.style.display = "none";
@@ -68,6 +71,9 @@ function signUp() {
           body: JSON.stringify(userDetails)
         })
         .then(response => response.json())
+        .then(data => {
+          console.log("Sign-up data:", data);
+        })
         .catch(error => console.error(error));
 
         formField.style.display = "none";
