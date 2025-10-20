@@ -4,9 +4,9 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="style.css">
-  <link rel="icon" href="moola_icon.png" type="image/png" size="16x16">
+  <link rel="icon" href="moola-by-alfie.png" type="image/png" size="16x16">
 
-  <title>Sign In / Moola by Alfie</title>
+  <title>Sign In / Basic Payments App</title>
 </head>
 <body>
 
@@ -17,16 +17,16 @@
   <main class="main-content">
     <p id="sign-in-header"></p>
     <div  class="sign-in-container">
-      <label for="phone-number">Phone number</label>
+      <label id="phoneNumber" for="phone-number">Phone number</label>
       <input class="phone-number-input" type="text" placeholder="Enter phone number"><br>
 
-      <label for="password">Password</label>
+      <label id="password" for="password">Password</label>
       <input class="password-input" type="password" placeholder="Enter password"><br>
       
       <button class="sign-in-button">Sign in</button>
     </div>
     
-    <p class="sign-in-feedback"></p>
+    <div class="sign-in-feedback"></div>
     <p class="user-account-info"></p>
     <div class="available-accounts-options"></div>
     <div class="transaction-container">
@@ -35,7 +35,7 @@
     <p class="account-balance-display"></p>
     <p class="account-number-display"></p>
 
-    <p>Don't have an account? <a href="register.html">Sign up</a></p>
+    <p id="sign-up-notif">Don't have an account? <a href="register.html">Sign up</a></p>
   </main>
 
   <footer id="footer">
@@ -46,9 +46,13 @@
     <p>Moola 2025. All rights reserved.</p><p>Deposits are <span>not</span> yet insured by the Nigerian Deposit Insurance Corporation (NDIC).</p>
   </footer>
 
+
+  
   <script src="sign-in.js">
     
   </script>
+  <script src="send-money.js"></script>
+  
   
 </body>
 </html>

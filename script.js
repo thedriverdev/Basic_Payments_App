@@ -10,83 +10,49 @@ const signUpHeader = document.querySelector("#sign-up-header");
 const signUpFeedback = document.querySelector(".sign-up-feedback");
 const numOfAccountsDisplay = document.querySelector(".num-of-accounts");
 
-let availableAccounts = [];
-
-availableAccounts = JSON.parse(localStorage.getItem("availableAccounts")) || [];
 
 function signUp() {
 
-  let userDetails = {
-    userFirstName: firstNameInput.value,
-    userMiddleName: middleNameInput.value,
-    userLastName: lastNameInput.value,
-    userPhoneNumber: phoneNumberInput.value,
-    userAccountNumber: phoneNumberInput.value.substring(1),
-    userPassword: passwordInput.value,
-    userBalance: 0
+  let signUpDetails = {
+    signUpFirstName: firstNameInput.value,
+    signUpMiddleName: middleNameInput.value,
+    signUpLastName: lastNameInput.value,
+    signUpPhoneNumber: phoneNumberInput.value,
+    signUpPassword: passwordInput.value,
+    
   };
 
-  if (userDetails.userFirstName !== "" && userDetails.userLastName !== "" && userDetails.userPassword !== "" && userDetails.userPhoneNumber !== "" && confirmPasswordInput.value !== "" && confirmPasswordInput.value === userDetails.userPassword) {
+  if (signUpDetails.signUpFirstName !== "" && signUpDetails.signUpLastName !== "" && signUpDetails.signUpPassword !== "" && signUpDetails.signUpPhoneNumber !== "" && confirmPasswordInput.value !== "" && confirmPasswordInput.value === signUpDetails.signUpPassword) {
+     
+    signUpFeedback.textContent = `Submitting sign-up request, dear ${signUpDetails.signUpFirstName}`;
 
-    if (availableAccounts.find((availableAccount)=>{return availableAccount.userPhoneNumber === userDetails.userPhoneNumber})) {
-      signUpFeedback.textContent = "Phone number already registered!";
+      fetch("https://localhost:7207/api/BasicPaymentsApp/sign-up", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(signUpDetails)
+      })
+      .then(response => {
+        if (!response.ok) {
+          return response.text().then(errorMessage => {
+            throw new Error(errorMessage || "Sign-up failed!");
+          });
+        }
+        return response.json();
+      })
+      .then(data => {
+        console.log("Sign-up successful:", data);
+        signUpFeedback.innerHTML = `Sign up successful, dear ${data.accountFirstName}`;
+      })
+      .catch(error => {
+        signUpFeedback.innerHTML = `Account number <strong>${signUpDetails.signUpPhoneNumber}</strong> already used.<br> Kindly register with another phone number. Thank you.`;
+        console.error(error);
+      });
 
-    } else {
-
-      if (userDetails.userPhoneNumber === "09166746110" && userDetails.userFirstName === "Alfred") {
-        userDetails.userBalance = 10000000;
-        availableAccounts.push(userDetails);
-        localStorage.setItem("availableAccounts", JSON.stringify(availableAccounts));
-        localStorage.setItem("numOfAccounts", availableAccounts.length);
-
-        fetch("https://localhost:7155/api/moolabyalfie/sign-up", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json"
-          },
-          body: JSON.stringify(userDetails)
-        })
-        .then(response => response.json())
-        .then(data => {
-          console.log("Sign-up data:", data);
-        })
-        .catch(error => console.error(error));
+      formField.style.display = "none";
+      signUpHeader.style.display = "none"; 
   
-        formField.style.display = "none";
-        signUpHeader.style.display = "none";
-        let numOfAccounts = localStorage.getItem("numOfAccounts");
-        numOfAccountsDisplay.textContent = `Number of available accounts: ${numOfAccounts}`;
-  
-        signUpFeedback.textContent = `Sign up successful, dear ${userDetails.userFirstName}.`;
-      } else {
-        availableAccounts.push(userDetails);
-        localStorage.setItem("availableAccounts", JSON.stringify(availableAccounts));
-        localStorage.setItem("numOfAccounts", availableAccounts.length);
-
-        fetch("https://localhost:7155/api/moolabyalfie/sign-up", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json"
-          },
-          body: JSON.stringify(userDetails)
-        })
-        .then(response => response.json())
-        .then(data => {
-          console.log("Sign-up data:", data);
-        })
-        .catch(error => console.error(error));
-
-        formField.style.display = "none";
-        signUpHeader.style.display = "none";
-        let numOfAccounts = localStorage.getItem("numOfAccounts");
-        numOfAccountsDisplay.textContent = `Number of available accounts: ${numOfAccounts}`;
-  
-        signUpFeedback.textContent = `Sign up successful, dear ${userDetails.userFirstName}`;
-      }
-
-    }
-
-    
   } else {
     signUpFeedback.textContent = "Make sure you have entered a name, and your passwords match.";
   }
