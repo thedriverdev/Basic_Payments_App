@@ -66,15 +66,11 @@ function signIn() {
       const sendButton = document.querySelector(".send-button");
       const feedbackDisplay = document.querySelector(".feedback-display");
 
-      //signInContainer.style.display = "none";
-
-
+    // Send money
     function sendMoney() {
       const activeAccount = activeAccounts[0];
-
-      //signInPhoneNumber = activeAccounts
         const destinationAccountNumber = document.querySelector(".destination-account-number");
-        //const amount = parseInt(numberInput.value);
+        const amount = parseInt(numberInput.value);
 
         fetch("https://localhost:7207/api/BasicPaymentsApp/send-money", {
             method: "POST",
@@ -84,7 +80,7 @@ function signIn() {
             body: JSON.stringify({
               SenderPhoneNumber : activeAccount,
               ReceiverAccountNumber: destinationAccountNumber.value,
-              Amount: numberInput.value,
+              Amount: amount,
               //TransactionPassword: passwordInput.value
             })
         })
@@ -95,8 +91,7 @@ function signIn() {
         .then(data => {
             console.log("Transaction successful");
             console.log(data);
-            accountBalanceDisplay.innerHTML = `<span>Account Balance: ₦${data.amount}</span>`;
-            //accountNumberDisplay.innerHTML = `<span>Account Number: ${data.accountNumber}</span>`;
+            accountBalanceDisplay.innerHTML = `<span>Account Balance: ₦${data.accountBalance}</span>`;
         })
         .catch(error => {
             console.error(error);
@@ -105,17 +100,11 @@ function signIn() {
 
     }sendButton.onclick = sendMoney;
 
-    
-    //const accountBalanceDisplay = document.querySelector(".account-balance-display");
-    //const accountNumberDisplay = document.querySelector(".account-number-display");
-
     userAccountInfo.innerHTML = `<div></div>`;
   })
   .catch(error => {
     console.error("Error:", error);
   });
-
-  
 }
 signInButton.onclick = signIn;
 
@@ -127,11 +116,16 @@ function signOut() {
   const accountBalanceDisplay = document.querySelector(".account-balance-display");
   const accountNumberDisplay = document.querySelector(".account-number-display");
 
+  const activeAccount = activeAccounts[0];
+
   fetch(`https://localhost:7207/api/BasicPaymentsApp/sign-out`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json"
-    }
+    },
+    body: JSON.stringify({
+      SignOutPhoneNumber: activeAccount
+    })
   })
   .then(response => response.json())
   .then(data => {
@@ -150,4 +144,4 @@ function signOut() {
   //   window.location.reload();
   // }, 1500);
   
-}
+} 
