@@ -22,7 +22,7 @@ function signUp() {
     
   };
 
-  if (signUpDetails.signUpFirstName !== "" && signUpDetails.signUpLastName !== "" && signUpDetails.signUpPassword !== "" && signUpDetails.signUpPhoneNumber !== "" && confirmPasswordInput.value !== "" && confirmPasswordInput.value === signUpDetails.signUpPassword) {
+  if (signUpDetails.signUpFirstName.trim() !== "" && signUpDetails.signUpLastName.trim() !== "" && signUpDetails.signUpPassword.trim() !== "" && signUpDetails.signUpPhoneNumber.trim() !== "" && signUpDetails.signUpPhoneNumber.length === 11 && !isNaN(signUpDetails.signUpPhoneNumber) && confirmPasswordInput.value.trim() !== "" && confirmPasswordInput.value.trim() === signUpDetails.signUpPassword.trim()) {
      
     signUpFeedback.textContent = `Submitting sign-up request, dear ${signUpDetails.signUpFirstName}`;
 
@@ -46,7 +46,7 @@ function signUp() {
         signUpFeedback.innerHTML = `Sign up successful, dear ${data.accountFirstName}`;
       })
       .catch(error => {
-        signUpFeedback.innerHTML = `Account number <strong>${signUpDetails.signUpPhoneNumber}</strong> already used.<br> Kindly register with another phone number. Thank you.`;
+        signUpFeedback.innerHTML = `Phone number <strong>${signUpDetails.signUpPhoneNumber}</strong> already used.<br> Kindly register with another phone number. Thank you.`;
         console.error(error);
       });
 
@@ -54,7 +54,7 @@ function signUp() {
       signUpHeader.style.display = "none"; 
   
   } else {
-    signUpFeedback.textContent = "Make sure you have entered a name, and your passwords match.";
+    signUpFeedback.textContent = "Invalid sign-up credentials.";
   }
 
 } signUpButton.onclick = signUp;

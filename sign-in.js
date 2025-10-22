@@ -95,7 +95,7 @@ function signIn() {
         })
         .catch(error => {
             console.error(error);
-            feedbackDisplay.textContent = `${error.message}`;
+            feedbackDisplay.textContent = "Insufficient funds.";
         });
 
     }sendButton.onclick = sendMoney;
