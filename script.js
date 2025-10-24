@@ -26,7 +26,7 @@ function signUp() {
      
     signUpFeedback.textContent = `Submitting sign-up request, dear ${signUpDetails.signUpFirstName}`;
 
-      fetch("https://localhost:7207/api/BasicPaymentsApp/sign-up", {
+      fetch("https://onedevdriver-001-site1.anytempurl.com/api/BasicPaymentsApp/sign-up", {
         method: "POST",
         headers: {
           "Content-Type": "application/json"

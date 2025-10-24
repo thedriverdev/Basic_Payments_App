@@ -61,3 +61,7 @@ body {
 #main-alfie {
   color: red;
 }
+
+#passwordInstruction {
+  text-align: left;
+}

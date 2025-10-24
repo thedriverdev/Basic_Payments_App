@@ -18,10 +18,11 @@ function signIn() {
 
   const accountBalanceDisplay = document.querySelector(".account-balance-display");
   const accountNumberDisplay = document.querySelector(".account-number-display");
+  const accountNameDisplay = document.querySelector(".account-name-display");
 
   signInFeedback.innerHTML = `<p>Submitting sign-in request.</p>`;
 
-  fetch("https://localhost:7207/api/BasicPaymentsApp/sign-in", {
+  fetch("https://onedevdriver-001-site1.anytempurl.com/api/BasicPaymentsApp/sign-in", {
     method: "POST",
     headers: {
       "Content-Type": "application/json"
@@ -51,6 +52,8 @@ function signIn() {
     signInButton.style.display = "none";
     signInContainer.style.display = "none";
     signUpNotif.style.display = "none";
+    
+    accountNameDisplay.innerHTML = `<span>Account Name: ${data.accountFirstName} ${data.accountMiddleName} ${data.accountLastName}</span>`;
     accountBalanceDisplay.innerHTML = `<span>Account Balance: ₦${data.accountBalance}</span>`;
     accountNumberDisplay.innerHTML = `<span>Account Number: ${data.accountNumber}</span>`;
 
@@ -66,13 +69,26 @@ function signIn() {
       const sendButton = document.querySelector(".send-button");
       const feedbackDisplay = document.querySelector(".feedback-display");
 
+    // setTimeout(() => {
+    // fetch(`https://localhost:7207/api/BasicPaymentsApp/alert?accountNumber=${activeAccount}`)
+    // .then(response => response.json())
+    // .then(data => {
+    //   if (data) {
+    //     console.log(`Alert: You received ₦${data.amount} from ${data.accountFirstName} ${data.accountMiddleName} ${data.accountLastName} on ${data.date}.`);
+    //   }else {
+    //     console.log("No new credit alert.");
+    //   }
+    // })
+    // .catch(error => console.error("Error fetching notifications.", error));
+    // }, 3000);
+
     // Send money
     function sendMoney() {
       const activeAccount = activeAccounts[0];
         const destinationAccountNumber = document.querySelector(".destination-account-number");
         const amount = parseInt(numberInput.value);
 
-        fetch("https://localhost:7207/api/BasicPaymentsApp/send-money", {
+        fetch("https://onedevdriver-001-site1.anytempurl.com/api/BasicPaymentsApp/send-money", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
@@ -105,6 +121,7 @@ function signIn() {
   .catch(error => {
     console.error("Error:", error);
   });
+
 }
 signInButton.onclick = signIn;
 
@@ -118,7 +135,7 @@ function signOut() {
 
   const activeAccount = activeAccounts[0];
 
-  fetch(`https://localhost:7207/api/BasicPaymentsApp/sign-out`, {
+  fetch(`https://onedevdriver-001-site1.anytempurl.com/api/BasicPaymentsApp/sign-out`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json"
@@ -140,8 +157,8 @@ function signOut() {
     console.error("Error signing out:", error);
   });
   
-  // setTimeout(()=>{
-  //   window.location.reload();
-  // }, 1500);
+  setTimeout(()=>{
+     window.location.reload();
+   }, 1500);
   
 } 
