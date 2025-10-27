@@ -82,10 +82,33 @@ function signIn() {
     // .catch(error => console.error("Error fetching notifications.", error));
     // }, 3000);
 
+    const destinationAccountNumber = document.querySelector(".destination-account-number");
+
+    function getAccount() {
+      if (destinationAccountNumber.value.length === 10) {
+      fetch(`https://onedevdriver-001-site1.anytempurl.com/api/BasicPaymentsApp/${destinationAccountNumber.value}`, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json"
+        }
+      })
+      .then(response => response.json())
+      .then(data => {
+        console.log(`Account Name: ${data.accountFirstName} ${data.accountMiddleName} ${data.accountLastName}\n Account Number: ${data.accountNumber}`);
+        feedbackDisplay.innerHTML = `Account Name: ${data.accountFirstName} ${data.accountMiddleName} ${data.accountLastName} <br> Account Number: ${data.accountNumber}`;
+      })
+    }
+    else {
+      console.log("Account number must be 10 digits.");
+      feedbackDisplay.textContent = "Account number must be 10 digits.";
+    }
+  }destinationAccountNumber.oninput = getAccount;
+    
+
     // Send money
     function sendMoney() {
       const activeAccount = activeAccounts[0];
-        const destinationAccountNumber = document.querySelector(".destination-account-number");
+        
         const amount = parseInt(numberInput.value);
 
         fetch("https://onedevdriver-001-site1.anytempurl.com/api/BasicPaymentsApp/send-money", {
@@ -111,7 +134,7 @@ function signIn() {
         })
         .catch(error => {
             console.error(error);
-            feedbackDisplay.textContent = "Insufficient funds.";
+            feedbackDisplay.textContent = `${error.toString()}`;
         });
 
     }sendButton.onclick = sendMoney;
