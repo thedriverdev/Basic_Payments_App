@@ -59,7 +59,7 @@ function signIn() {
 
     transactionContainer.innerHTML = `
         <input class="destination-account-number" type="text" placeholder="Recipient account number">
-        <input class="number-input" type="number" placeholder="Enter amount">
+        <input class="number-input" type="text" placeholder="Enter amount">
         <button class="send-button">Send money</button>
         <p class="feedback-display"></p>`;
 
@@ -85,7 +85,9 @@ function signIn() {
     const destinationAccountNumber = document.querySelector(".destination-account-number");
 
     function getAccount() {
+      console.log(destinationAccountNumber.value);
       if (destinationAccountNumber.value.length === 10) {
+        
       fetch(`https://onedevdriver-001-site1.anytempurl.com/api/BasicPaymentsApp/${destinationAccountNumber.value}`, {
         method: "GET",
         headers: {
@@ -97,6 +99,7 @@ function signIn() {
         console.log(`Account Name: ${data.accountFirstName} ${data.accountMiddleName} ${data.accountLastName}\n Account Number: ${data.accountNumber}`);
         feedbackDisplay.innerHTML = `Account Name: ${data.accountFirstName} ${data.accountMiddleName} ${data.accountLastName} <br> Account Number: ${data.accountNumber}`;
       })
+      .catch(error => console.error("Could not fetch account", error));
     }
     else {
       console.log("Account number must be 10 digits.");
@@ -111,31 +114,53 @@ function signIn() {
         
         const amount = parseInt(numberInput.value);
 
-        fetch("https://onedevdriver-001-site1.anytempurl.com/api/BasicPaymentsApp/send-money", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify({
-              SenderPhoneNumber : activeAccount,
-              ReceiverAccountNumber: destinationAccountNumber.value,
-              Amount: amount,
-              //TransactionPassword: passwordInput.value
-            })
-        })
-        .then(response => {
+        feedbackDisplay.innerHTML = `Send <span>₦${amount}</span> to <br>
+              <span>Name: ${destinationAccountNumber}<br>
+              Account Number: ${destinationAccountNumber.value}</span> <br>
+              <input id="confirm-txn-password-input" type="password" placeholder="Enter your password"><button id="confirm-txn-button">Confirm</button>
+              <button id="deny-txn-button">Deny</button>`;
+        
+        const confirmTxnPassword = document.getElementById("confirm-txn-password-input");
+        const confirmTxnButton = document.getElementById("confirm-txn-button");
+        const confirmNo = document.getElementById("deny-txn-button");
 
-            return response.json();
-        })
-        .then(data => {
-            console.log("Transaction successful");
-            console.log(data);
-            accountBalanceDisplay.innerHTML = `<span>Account Balance: ₦${data.accountBalance}</span>`;
-        })
-        .catch(error => {
-            console.error(error);
-            feedbackDisplay.textContent = `${error.toString()}`;
-        });
+        // Confirm send
+        function confirmTxn() {
+
+          fetch("https://onedevdriver-001-site1.anytempurl.com/api/BasicPaymentsApp/send-money", {
+              method: "POST",
+              headers: {
+                  "Content-Type": "application/json"
+              },
+              body: JSON.stringify({
+                SenderPhoneNumber : activeAccount,
+                ReceiverAccountNumber: destinationAccountNumber.value,
+                Amount: amount,
+                SenderPassword: confirmTxnPassword.value
+              })
+          })
+          .then(response => {
+
+              return response.json();
+          })
+          .then(data => {
+              console.log("Transaction successful.");
+              feedbackDisplay.textContent = "Transaction successful!";
+              console.log(data);
+              accountBalanceDisplay.innerHTML = `<span>Account Balance: ₦${data.accountBalance}</span>`;
+          })
+          .catch(error => {
+              console.error(error);
+              feedbackDisplay.textContent = `${error.message.toString()}`;
+          });
+
+        }confirmTxnButton.onclick = confirmTxn;
+
+
+        // Deny send
+        function denyTxn() {
+        feedbackDisplay.textContent = "Transaction cancelled!";
+        }confirmNo.onclick = denyTxn;
 
     }sendButton.onclick = sendMoney;
 
