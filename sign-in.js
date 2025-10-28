@@ -82,40 +82,48 @@ function signIn() {
     // .catch(error => console.error("Error fetching notifications.", error));
     // }, 3000);
 
-    const destinationAccountNumber = document.querySelector(".destination-account-number");
+    const recipientAccountNumber = document.querySelector(".destination-account-number");
 
-    function getAccount() {
-      console.log(destinationAccountNumber.value);
-      if (destinationAccountNumber.value.length === 10) {
+  //   function getAccount() {
+
+       
+
+  //     if (recipientAccountNumber.value.length === 10) {
         
-      fetch(`https://onedevdriver-001-site1.anytempurl.com/api/BasicPaymentsApp/${destinationAccountNumber.value}`, {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json"
-        }
-      })
-      .then(response => response.json())
-      .then(data => {
-        console.log(`Account Name: ${data.accountFirstName} ${data.accountMiddleName} ${data.accountLastName}\n Account Number: ${data.accountNumber}`);
-        feedbackDisplay.innerHTML = `Account Name: ${data.accountFirstName} ${data.accountMiddleName} ${data.accountLastName} <br> Account Number: ${data.accountNumber}`;
-      })
-      .catch(error => console.error("Could not fetch account", error));
-    }
-    else {
-      console.log("Account number must be 10 digits.");
-      feedbackDisplay.textContent = "Account number must be 10 digits.";
-    }
-  }destinationAccountNumber.oninput = getAccount;
+  //     fetch(`https://onedevdriver-001-site1.anytempurl.com/api/BasicPaymentsApp/${recipientAccountNumber.value}`)
+  //     .then(response => {
+  //       if (!response.ok) {
+  //         throw new Error(`Server responded with ${response.status}`);
+  //       }
+  //       return response.json();
+  //     })
+  //     .then(data => {
+  //       feedbackDisplay.innerHTML = `
+  //         Account Name: ${data.AccountFirstName} ${data.AccountMiddleName ?? ""} ${data.AccountLastName} <br>
+  //         Account Number: ${data.AccountNumber}
+  //       `;
+  //     })
+  //     .catch(error => {
+  //       console.error("Could not fetch account:", error);
+  //       feedbackDisplay.textContent = "Unable to verify account number.";
+  //     });
+
+  //   }
+  //   else {
+  //     console.log("Account number must be 10 digits.");
+  //     feedbackDisplay.textContent = "Account number must be 10 digits.";
+  //   }
+  // }recipientAccountNumber.oninput = getAccount;
     
 
     // Send money
     function sendMoney() {
       const activeAccount = activeAccounts[0];
-        
+        const destinationAccountNumber = document.querySelector(".destination-account-number");
         const amount = parseInt(numberInput.value);
 
         feedbackDisplay.innerHTML = `Send <span>₦${amount}</span> to <br>
-              <span>Name: ${destinationAccountNumber}<br>
+              <span>Name: ${destinationAccountNumber.value}<br>
               Account Number: ${destinationAccountNumber.value}</span> <br>
               <input id="confirm-txn-password-input" type="password" placeholder="Enter your password"><button id="confirm-txn-button">Confirm</button>
               <button id="deny-txn-button">Deny</button>`;
@@ -126,6 +134,8 @@ function signIn() {
 
         // Confirm send
         function confirmTxn() {
+          // Disable button to prevent multiple clicks
+          confirmTxnButton.disabled = true;
 
           fetch("https://onedevdriver-001-site1.anytempurl.com/api/BasicPaymentsApp/send-money", {
               method: "POST",
@@ -133,28 +143,58 @@ function signIn() {
                   "Content-Type": "application/json"
               },
               body: JSON.stringify({
-                SenderPhoneNumber : activeAccount,
-                ReceiverAccountNumber: destinationAccountNumber.value,
-                Amount: amount,
-                SenderPassword: confirmTxnPassword.value
+                  SenderPhoneNumber: activeAccount,
+                  ReceiverAccountNumber: destinationAccountNumber.value,
+                  Amount: amount,
+                  SenderPassword: confirmTxnPassword.value
               })
           })
-          .then(response => {
+          .then(async response => {
+              // Attempt to parse JSON, even on error responses
+              let data;
+              try {
+                  data = await response.json();
+              } catch (err) {
+                  throw new Error("Invalid server response");
+              }
 
-              return response.json();
-          })
-          .then(data => {
-              console.log("Transaction successful.");
-              feedbackDisplay.textContent = "Transaction successful!";
-              console.log(data);
-              accountBalanceDisplay.innerHTML = `<span>Account Balance: ₦${data.accountBalance}</span>`;
+              // Handle HTTP status codes
+              if (!response.ok) {
+                  // Display message from server if available
+                  feedbackDisplay.textContent = data?.message || "Transaction failed!";
+                  // Update account balance if included
+                  if (data?.data?.accountBalance !== undefined) {
+                      accountBalanceDisplay.innerHTML = `<span>Account Balance: ₦${data.data.accountBalance}</span>`;
+                  }
+                  throw new Error(data?.message || "Transaction failed");
+              }
+
+              // Success case
+              feedbackDisplay.textContent = data.message || "Transaction successful!";
+              if (data?.accountBalance !== undefined) {
+                  accountBalanceDisplay.innerHTML = `<span>Account Balance: ₦${data.accountBalance}</span>`;
+              } else if (data?.data?.accountBalance !== undefined) {
+                  // fallback for API returning data inside 'data'
+                  accountBalanceDisplay.innerHTML = `<span>Account Balance: ₦${data.data.accountBalance}</span>`;
+              }
+
+              console.log("Transaction response:", data);
           })
           .catch(error => {
-              console.error(error);
-              feedbackDisplay.textContent = `${error.message.toString()}`;
+              console.error("Transaction error:", error);
+              if (!feedbackDisplay.textContent) {
+                  feedbackDisplay.textContent = error.message || "Network or server error!";
+              }
+          })
+          .finally(() => {
+              // Re-enable button after transaction attempt
+              confirmTxnButton.disabled = false;
           });
+        }
 
-        }confirmTxnButton.onclick = confirmTxn;
+      // Bind to button
+      confirmTxnButton.onclick = confirmTxn;
+
 
 
         // Deny send
