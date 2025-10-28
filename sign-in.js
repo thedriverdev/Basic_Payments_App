@@ -84,6 +84,8 @@ function signIn() {
 
     const recipientAccountNumber = document.querySelector(".destination-account-number");
 
+    let receiverData = null;
+
     function getAccount() {
 
       if (recipientAccountNumber.value.length === 10) {
@@ -102,6 +104,7 @@ function signIn() {
         .then(data => {
           console.log(data);
           feedbackDisplay.innerHTML = data.message;
+          receiverData = data;
         })
         .catch(error => {
           console.error(error);
@@ -109,8 +112,9 @@ function signIn() {
         } );
         
 
-      } else if (recipientAccountNumber.value.length === 0) {
+      } else if (recipientAccountNumber.value.length < 1) {
         console.log("Nothing typed.");
+        feedbackDisplay.textContent = "";
         
       }
       else {
@@ -127,7 +131,8 @@ function signIn() {
         const amount = parseInt(numberInput.value);
 
         feedbackDisplay.innerHTML = `Send <span>₦${amount}</span> to <br>
-              <span>Account Number: ${destinationAccountNumber.value}</span> <br>
+              <span>Account Name: ${receiverData.recipient.accountFirstName} ${receiverData.recipient.accountMiddleName} ${receiverData.recipient.accountLastName}</span> <br>
+              <span>Account Number: ${receiverData.recipient.accountNumber}</span> <br>
               <input id="confirm-txn-password-input" type="password" placeholder="Enter your password"><button id="confirm-txn-button">Confirm</button>
               <button id="deny-txn-button">Deny</button>`;
         
