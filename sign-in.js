@@ -163,7 +163,7 @@ function signIn() {
                   feedbackDisplay.textContent = data?.message || "Transaction failed!";
                   // Update account balance if included
                   if (data?.data?.accountBalance !== undefined) {
-                      accountBalanceDisplay.innerHTML = `<span>Account Balance: ₦${data.data.accountBalance}</span>`;
+                      accountBalanceDisplay.innerHTML = `<span>Account Balance: ₦${data.sender.accountBalance}</span>`;
                   }
                   throw new Error(data?.message || "Transaction failed");
               }
@@ -171,13 +171,14 @@ function signIn() {
               // Success case
               feedbackDisplay.textContent = data.message || `Transaction successfully sent to ${data.receiver.accountMiddleName}` || ` ${data.receiver.AccountMiddleName}`;
               if (data?.accountBalance !== undefined) {
-                  accountBalanceDisplay.innerHTML = `<span>Account Balance: ₦${data.accountBalance}</span>`;
+                  accountBalanceDisplay.innerHTML = `<span>Account Balance: ₦${data.sender.accountBalance}</span>`;
               } else if (data?.data?.accountBalance !== undefined) {
                   // fallback for API returning data inside 'data'
-                  accountBalanceDisplay.innerHTML = `<span>Account Balance: ₦${data.data.accountBalance}</span>`;
+                  accountBalanceDisplay.innerHTML = `<span>Account Balance: ₦${data.sender.accountBalance}</span>`;
               }
 
               console.log("Transaction response:", data);
+              accountBalanceDisplay.innerHTML = `<span>Account Balance: ₦${data.sender.accountBalance}</span>`;
           })
           .catch(error => {
               console.error("Transaction error:", error);
