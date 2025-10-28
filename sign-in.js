@@ -58,8 +58,8 @@ function signIn() {
     accountNumberDisplay.innerHTML = `<span>Account Number: ${data.accountNumber}</span>`;
 
     transactionContainer.innerHTML = `
-        <input class="destination-account-number" type="text" placeholder="Recipient account number">
-        <input class="number-input" type="text" placeholder="Enter amount">
+        <input class="destination-account-number" type="number" placeholder="Recipient account number">
+        <input class="number-input" type="number" placeholder="Enter amount">
         <button class="send-button">Send money</button>
         <p class="feedback-display"></p>`;
 
@@ -169,7 +169,7 @@ function signIn() {
               }
 
               // Success case
-              feedbackDisplay.textContent = data.message || "Transaction successful!";
+              feedbackDisplay.textContent = data.message || `Transaction successfully sent to ${data.receiver.accountMiddleName}` || ` ${data.receiver.AccountMiddleName}`;
               if (data?.accountBalance !== undefined) {
                   accountBalanceDisplay.innerHTML = `<span>Account Balance: ₦${data.accountBalance}</span>`;
               } else if (data?.data?.accountBalance !== undefined) {
