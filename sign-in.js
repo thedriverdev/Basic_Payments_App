@@ -123,8 +123,7 @@ function signIn() {
         const amount = parseInt(numberInput.value);
 
         feedbackDisplay.innerHTML = `Send <span>₦${amount}</span> to <br>
-              <span>Name: ${destinationAccountNumber.value}<br>
-              Account Number: ${destinationAccountNumber.value}</span> <br>
+              <span>Account Number: ${destinationAccountNumber.value}</span> <br>
               <input id="confirm-txn-password-input" type="password" placeholder="Enter your password"><button id="confirm-txn-button">Confirm</button>
               <button id="deny-txn-button">Deny</button>`;
         
