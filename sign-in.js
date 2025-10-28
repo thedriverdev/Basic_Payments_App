@@ -84,36 +84,40 @@ function signIn() {
 
     const recipientAccountNumber = document.querySelector(".destination-account-number");
 
-  //   function getAccount() {
+    function getAccount() {
 
-       
-
-  //     if (recipientAccountNumber.value.length === 10) {
+      if (recipientAccountNumber.value.length === 10) {
         
-  //     fetch(`https://onedevdriver-001-site1.anytempurl.com/api/BasicPaymentsApp/${recipientAccountNumber.value}`)
-  //     .then(response => {
-  //       if (!response.ok) {
-  //         throw new Error(`Server responded with ${response.status}`);
-  //       }
-  //       return response.json();
-  //     })
-  //     .then(data => {
-  //       feedbackDisplay.innerHTML = `
-  //         Account Name: ${data.AccountFirstName} ${data.AccountMiddleName ?? ""} ${data.AccountLastName} <br>
-  //         Account Number: ${data.AccountNumber}
-  //       `;
-  //     })
-  //     .catch(error => {
-  //       console.error("Could not fetch account:", error);
-  //       feedbackDisplay.textContent = "Unable to verify account number.";
-  //     });
+        
+        fetch("https://onedevdriver-001-site1.anytempurl.com/api/BasicPaymentsApp/receiver-query", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify({
+            ReceiverAccountNumber: recipientAccountNumber.value
+          })
+        })
+        .then(response => response.json())
+        .then(data => {
+          console.log(data);
+          feedbackDisplay.innerHTML = data.message;
+        })
+        .catch(error => {
+          console.error(error);
+          feedbackDisplay.innerHTML = error.message;
+        } );
+        
 
-  //   }
-  //   else {
-  //     console.log("Account number must be 10 digits.");
-  //     feedbackDisplay.textContent = "Account number must be 10 digits.";
-  //   }
-  // }recipientAccountNumber.oninput = getAccount;
+      } else if (recipientAccountNumber.value.length === 0) {
+        console.log("Nothing typed.");
+        
+      }
+      else {
+        console.log("Account number: " + recipientAccountNumber.value.length + "/10 digits.");
+        feedbackDisplay.textContent = "Account number must be 10 digits.";
+      }
+    }recipientAccountNumber.oninput = getAccount;
     
 
     // Send money
