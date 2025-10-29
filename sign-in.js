@@ -34,8 +34,8 @@ function signIn() {
   })
   .then(response => {
     if (!response.ok) {
-      signInHeader.innerHTML = `Something went wrong!`;
-      throw new Error("Something went wrong!");
+      signInHeader.innerHTML = "Automatically signed out due to re-login. Sign in again.";
+      throw new Error("Automatically signed out due to re-login. Sign in again.");
       
     }
     return response.json();
@@ -117,9 +117,17 @@ function signIn() {
         feedbackDisplay.textContent = "";
         
       }
+      else if(recipientAccountNumber.value.length >= 1 && recipientAccountNumber.value.length <= 6) {
+        console.log("Account number must be 10 digits.");
+        feedbackDisplay.style.fontSize = "12px";
+        feedbackDisplay.style.fontWeight = "bold";
+        feedbackDisplay.textContent = "Account number must be 10 digits.";
+      }
       else {
         console.log("Account number: " + recipientAccountNumber.value.length + "/10 digits.");
-        feedbackDisplay.textContent = "Account number must be 10 digits.";
+        feedbackDisplay.style.fontSize = "12px";
+        feedbackDisplay.style.fontWeight = "bold";
+        feedbackDisplay.textContent = "Account number: " + recipientAccountNumber.value.length + "/10 digits.";
       }
     }recipientAccountNumber.oninput = getAccount;
     
